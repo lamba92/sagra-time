@@ -43,3 +43,13 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### .env ###
+.env
+
+### idea ###
+.idea
+
+### Python stuf ###
+uv.lock
+pyproject.toml
