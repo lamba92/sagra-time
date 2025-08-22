@@ -6,6 +6,7 @@ plugins {
     `maven-publish`
     id("com.android.kotlin.multiplatform.library")
     id("convention-ktlint")
+    id("convention-version")
     kotlin("multiplatform")
     kotlin("plugin.serialization")
 }
@@ -22,7 +23,7 @@ kotlin {
     jvmToolchain(11)
     androidLibrary {
         experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
-        namespace = "io.gituhb.lamba92.corpore"
+        namespace = group.toString()
         compileSdk = 36
         minSdk = 24
     }

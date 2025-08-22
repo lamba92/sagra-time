@@ -1,0 +1,3 @@
+plugins {
+    `convention-kmp-lib`
+}
