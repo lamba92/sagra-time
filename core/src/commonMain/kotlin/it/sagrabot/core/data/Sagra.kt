@@ -14,13 +14,19 @@ data class Sagra(
 )
 
 @Serializable
-data class Location(
+data class Coordinates(
     val lat: Double,
     val lon: Double,
+)
+
+@Serializable
+data class Location(
+    val coordinates: Coordinates,
     val cityName: String,
     val region: ItalianRegion,
 )
 
+@Serializable
 enum class ItalianRegion {
     Abruzzo,
     Basilicata,

@@ -1,13 +1,11 @@
 package it.sagrabot.server.routes
 
-import com.github.lamba92.kotlin.document.store.core.ObjectCollection
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.route
-import it.sagrabot.core.data.Sagra
-import kotlinx.coroutines.Deferred
+import it.sagrabot.server.service.SagraProvider
 
-fun Routing.apiRoutes(sagreCollection: Deferred<ObjectCollection<Sagra>>) {
+fun Routing.apiRoutes(sagraProvider: SagraProvider) {
     route("api") {
-        v1Routes(sagreCollection)
+        v1Routes(sagraProvider)
     }
 }
