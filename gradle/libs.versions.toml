@@ -26,6 +26,7 @@ lamba-docker = "1.1.0"
 logback = "1.5.18"
 model-contex-protocol = "0.6.0"
 nexus-publish-plugin = "2.0.0"
+node-gradle = "7.1.0"
 xmlutil = "0.91.2"
 
 [libraries]
@@ -150,3 +151,4 @@ kotlin-plugin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.re
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
 lamba-docker = { id = "io.github.lamba92.docker", version.ref = "lamba-docker" }
+node = { id = "com.github.node-gradle.node", version.ref = "node-gradle" }
