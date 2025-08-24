@@ -42,7 +42,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
     ":crawler",
-    ":server",
+    ":api-server",
     ":core",
     ":app",
     ":app:app-core",

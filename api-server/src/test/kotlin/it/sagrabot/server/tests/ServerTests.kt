@@ -15,6 +15,7 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.testing.ApplicationTestBuilder
 import io.ktor.server.testing.testApplication
@@ -52,7 +53,7 @@ class ServerTests {
             header(HttpHeaders.ContentType, ContentType.Application.Json)
             setBody(TestSagra)
         }
-        if (postResult.status.value != 200) error("Failed to insert test sagra")
+        if (postResult.status != HttpStatusCode.OK) error("Failed to insert test sagra")
         val result = client.get("api/v1/sagra/search").body<Page<Sagra>>()
         assertEquals(listOf(TestSagra), result.results)
     }
@@ -63,7 +64,7 @@ class ServerTests {
             header(HttpHeaders.ContentType, ContentType.Application.Json)
             setBody(TestSagra)
         }
-        assertEquals(401, postResult.status.value)
+        assertEquals(HttpStatusCode.Unauthorized, postResult.status)
     }
 }
 
