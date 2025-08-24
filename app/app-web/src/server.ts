@@ -49,7 +49,26 @@ app.get('**', (req, res, next) => {
       publicPath: browserDistFolder,
       providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
     })
-    .then((html) => res.send(html))
+    .then((html) => {
+      // Inject Material theme links at SSR time based on cookie
+      const themeCookie = req.headers.cookie?.match(/theme-mode=([^;]+)/)?.[1] as string | undefined;
+      const LIGHT_LINK = '<link id="app-theme-link" rel="stylesheet" href="@angular/material/prebuilt-themes/azure-blue.css">';
+      const DARK_LINK = '<link id="app-theme-link" rel="stylesheet" href="@angular/material/prebuilt-themes/cyan-orange.css">';
+      const LIGHT_SYS = '<link id="app-theme-link-light" rel="stylesheet" href="@angular/material/prebuilt-themes/azure-blue.css" media="(prefers-color-scheme: light)">';
+      const DARK_SYS = '<link id="app-theme-link-dark" rel="stylesheet" href="@angular/material/prebuilt-themes/cyan-orange.css" media="(prefers-color-scheme: dark)">';
+
+      let inject: string;
+      if (themeCookie === 'light') {
+        inject = LIGHT_LINK;
+      } else if (themeCookie === 'dark') {
+        inject = DARK_LINK;
+      } else {
+        // system or undefined
+        inject = LIGHT_SYS + '\n' + DARK_SYS;
+      }
+      const htmlOut = html.replace('</head>', `  ${inject}\n</head>`);
+      res.send(htmlOut);
+    })
     .catch((err) => next(err));
 });
 

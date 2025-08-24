@@ -67,7 +67,7 @@ export class ThemeService {
 
       this.setupMediaQuery();
       this.updateIsDark();
-      this.ensureLinkElement();
+      // Apply without creating a single link in System mode to reuse SSR-injected links
       this.applyTheme();
 
       // React to mode changes automatically. This persists the selection and reapplies the theme.
@@ -75,24 +75,16 @@ export class ThemeService {
         const m = this.mode();
         if (isPlatformBrowser(this.platformId)) {
           try { localStorage.setItem(this.storageKey, m); } catch {}
+          try {
+            const maxAge = 60 * 60 * 24 * 365; // 1 year
+            document.cookie = `theme-mode=${m}; Path=/; Max-Age=${maxAge}`;
+          } catch {}
         }
         this.updateIsDark();
         this.applyTheme();
       });
     }
   }
-
-  /**
-   * Set the theme mode preference.
-   * Why: Exposes an imperative API for components to request Light, Dark, or System behavior.
-   */
-  setMode(mode: ThemeMode) { this.mode.set(mode); }
-
-  /**
-   * Get the current theme mode preference.
-   * Why: Allows non-reactive reads (e.g., for logging, conditional logic) without subscribing.
-   */
-  getMode(): ThemeMode { return this.mode(); }
 
   /**
    * Prepare the matchMedia listener for system dark mode changes.
@@ -109,7 +101,10 @@ export class ThemeService {
     };
     // Modern addEventListener is preferred, but fall back for Safari <=13
     try { this.mediaQuery.addEventListener('change', listener); }
-    catch { this.mediaQuery.addListener(listener); }
+    catch {
+        try {this.mediaQuery.addListener(listener); }
+        catch { console.warn('Failed to set up system theme listener'); }
+    }
   }
 
   /**
@@ -148,8 +143,6 @@ export class ThemeService {
   private applyTheme() {
     if (!isPlatformBrowser(this.platformId)) return;
     const isDark = this.isDark();
-    if (!this.linkEl) this.ensureLinkElement();
-    if (!this.linkEl) return;
 
     // When following system, we can use media attribute to let browser switch automatically
     if (this.mode() === ThemeMode.System) {
@@ -161,6 +154,10 @@ export class ThemeService {
     // If forcing a mode, ensure only one link with direct href and no media
     // Remove any system pair if present
     this.cleanupSystemLinks();
+
+    // ensure single link exists
+    if (!this.linkEl) this.ensureLinkElement();
+    if (!this.linkEl) return;
 
     this.linkEl.media = '';
     this.linkEl.href = isDark ? this.darkHref : this.lightHref;
