@@ -44,7 +44,7 @@ jobs:
           java-version: 21
       - uses: gradle/actions/setup-gradle@v4
       - run: chmod +x gradlew
-      - run: ./gradlew ktlintCheck
+      - run: ./gradlew ktlintCheck nglintCheck
 
   test:
     strategy:
@@ -62,6 +62,29 @@ jobs:
     - uses: gradle/actions/setup-gradle@v4
     - name: Run tests
       run: ./gradlew allTests
+
+  dockerBuild:
+    runs-on: ubuntu-latest
+    name: Docker Buildx Build test
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: 21
+      - run: chmod +x gradlew
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: network=host
+      - name: Run tests
+        run: ./gradlew dockerBuildxPushMainToTest
 
   publication:
     if: false # not needed for now

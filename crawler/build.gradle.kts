@@ -1,7 +1,7 @@
 plugins {
-    `convention-version`
-    id(libs.plugins.lamba.docker)
     distribution
+    id(libs.plugins.ktlint)
+    `convention-docker`
 }
 
 distributions {
@@ -9,7 +9,6 @@ distributions {
         contents {
             from("src/main/python") {
                 into("app")
-
             }
         }
     }

@@ -2,7 +2,7 @@ plugins {
     `convention-version`
     application
     id(libs.plugins.kotlin.jvm)
-    id(libs.plugins.lamba.docker)
+    `convention-docker`
 }
 
 application {
