@@ -77,7 +77,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Run tests
-        run: ./gradlew buildxBuild
+        run: ./gradlew dockerBuildxBuild
 
   publication:
     if: false # not needed for now
