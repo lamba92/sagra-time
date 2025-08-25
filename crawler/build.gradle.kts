@@ -1,8 +1,7 @@
 plugins {
-    `convention-version`
     distribution
     id(libs.plugins.ktlint)
-    id(libs.plugins.lamba.docker)
+    `convention-docker`
 }
 
 distributions {

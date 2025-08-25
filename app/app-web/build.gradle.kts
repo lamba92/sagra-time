@@ -1,8 +1,7 @@
 import com.github.gradle.node.npm.task.NpxTask
 
 plugins {
-    `convention-version`
-    id(libs.plugins.lamba.docker)
+    `convention-docker`
     id(libs.plugins.node)
     distribution
 }

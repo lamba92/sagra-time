@@ -76,8 +76,10 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+      - name: Start local registry
+        run: docker run -d -p 5000:5000 --name registry registry:2
       - name: Run tests
-        run: ./gradlew dockerBuildxBuild
+        run: ./gradlew dockerBuildxPushMainToTest
 
   publication:
     if: false # not needed for now
