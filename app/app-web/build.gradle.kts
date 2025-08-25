@@ -4,7 +4,6 @@ plugins {
     `convention-version`
     id(libs.plugins.lamba.docker)
     id(libs.plugins.node)
-    id(libs.plugins.ktlint)
     distribution
 }
 
@@ -24,11 +23,18 @@ val ngBuildProduction by tasks.registering(NpxTask::class) {
     outputs.dir("dist")
 }
 
-tasks.register<NpxTask>("ngLint") {
+tasks.register<NpxTask>("nglintCheck") {
     dependsOn(tasks.npmInstall)
     group = "angular"
     command = "ng"
     args = listOf("lint")
+}
+
+tasks.register<NpxTask>("nglintFormat") {
+    dependsOn(tasks.npmInstall)
+    group = "angular"
+    command = "ng"
+    args = listOf("lint", "--fix")
 }
 
 distributions {

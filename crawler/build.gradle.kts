@@ -10,7 +10,6 @@ distributions {
         contents {
             from("src/main/python") {
                 into("app")
-
             }
         }
     }
