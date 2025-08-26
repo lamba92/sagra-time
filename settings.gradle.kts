@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-rootProject.name = "sagra-bot"
+rootProject.name = "sagra-time"
 
 pluginManagement {
     repositories {
@@ -48,5 +48,6 @@ include(
     ":app:app-core",
     ":app:app-desktop",
     ":app:app-android",
-    ":app:app-web",
+//    ":app:app-web-angular",
+    ":app:app-web-compose",
 )

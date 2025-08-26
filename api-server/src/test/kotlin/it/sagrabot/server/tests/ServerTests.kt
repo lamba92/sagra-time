@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalPathApi::class, ExperimentalTime::class)
 
-package it.sagrabot.server.tests
+package it.sagratime.server.tests
 
 import com.github.lamba92.kotlin.document.store.core.use
 import com.github.lamba92.kotlin.document.store.stores.leveldb.LevelDBStore
@@ -19,16 +19,16 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.testing.ApplicationTestBuilder
 import io.ktor.server.testing.testApplication
-import it.sagrabot.core.data.Coordinates
-import it.sagrabot.core.data.ItalianRegion
-import it.sagrabot.core.data.Location
-import it.sagrabot.core.data.Page
-import it.sagrabot.core.data.Sagra
-import it.sagrabot.server.ADMIN_PASSWORD
-import it.sagrabot.server.ADMIN_USERNAME
-import it.sagrabot.server.DB_PATH
-import it.sagrabot.server.SagraBot
-import it.sagrabot.server.getDocumentStoreSagraProvider
+import it.sagratime.core.data.GeoCoordinates
+import it.sagratime.core.data.ItalianRegion
+import it.sagratime.core.data.Location
+import it.sagratime.core.data.Page
+import it.sagratime.core.data.Event
+import it.sagratime.server.ADMIN_PASSWORD
+import it.sagratime.server.ADMIN_USERNAME
+import it.sagratime.server.DB_PATH
+import it.sagratime.server.SagraTime
+import it.sagratime.server.getDocumentStoreSagraProvider
 import kotlin.io.path.ExperimentalPathApi
 import kotlin.io.path.Path
 import kotlin.io.path.deleteRecursively
@@ -51,18 +51,18 @@ class ServerTests {
     fun insertAndRetrieve() = testSagraApplication {
         val postResult = client.post("api/v1/sagra/add") {
             header(HttpHeaders.ContentType, ContentType.Application.Json)
-            setBody(TestSagra)
+            setBody(TestEvent)
         }
         if (postResult.status != HttpStatusCode.OK) error("Failed to insert test sagra")
-        val result = client.get("api/v1/sagra/search").body<Page<Sagra>>()
-        assertEquals(listOf(TestSagra), result.results)
+        val result = client.get("api/v1/sagra/search").body<Page<Event>>()
+        assertEquals(listOf(TestEvent), result.results)
     }
 
     @Test
     fun canOnlyAddSagraWithAdminAuth() = testSagraApplication(withAuth = false) {
         val postResult = client.post("api/v1/sagra/add") {
             header(HttpHeaders.ContentType, ContentType.Application.Json)
-            setBody(TestSagra)
+            setBody(TestEvent)
         }
         assertEquals(HttpStatusCode.Unauthorized, postResult.status)
     }
@@ -87,20 +87,20 @@ fun testSagraApplication(
         }
     }
     LevelDBStore.open(DB_PATH).use { store ->
-        application { SagraBot(getDocumentStoreSagraProvider(store)) }
+        application { SagraTime(getDocumentStoreSagraProvider(store)) }
         block()
     }
 }
 
-val TestSagra =
-    Sagra(
+val TestEvent =
+    Event(
         name = "test",
         food = listOf("test1", "test2"),
         from = LocalDateTime.parse(Clock.System.now().toString().removeSuffix("Z")),
         until = LocalDateTime.parse((Clock.System.now() + 3.days).toString().removeSuffix("Z")),
         description = "test",
         location = Location(
-            coordinates = Coordinates(1.0, 2.0),
+            geoCoordinates = GeoCoordinates(1.0, 2.0),
             cityName = "test",
             region = ItalianRegion.Abruzzo
         )

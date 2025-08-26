@@ -1,5 +1,5 @@
-# REQUIREMENTS for SagraBot
-Sagrabot is a bot for searching for info about Sagre in Italy and serving them via API and a web app.
+# REQUIREMENTS for SagraTime
+SagraTime is a bot for searching for info about Sagre in Italy and serving them via API and a web app.
 
 ## Search
 - by name
@@ -9,10 +9,23 @@ Sagrabot is a bot for searching for info about Sagre in Italy and serving them v
 
 ## Data
 - location
+  - city
+  - region
+  - lat/long
 - food
-- date
+- when
+  - start/end dates (and possibly time)
 - small description
 - link to official whatever
+- tag (not right now)
+  - let ai search already existing ones and let it decide if to create new ones
+- type:
+  - gastro
+  - eno
+  - agricola
+  - folklore
+  - marinara
+  - festa paese
 
 ## Infra Architecture
 - embedded database for storage
@@ -28,3 +41,13 @@ Sagrabot is a bot for searching for info about Sagre in Italy and serving them v
 - render JS in page if needed
 - use LLM to extract data from document
 - serialize data in JSON
+
+
+## Ideas
+- account
+  - personal calendar
+- tinder like sagra selection
+  - requires an account
+- Ai calendar
+- i18n
+- 

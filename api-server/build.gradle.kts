@@ -6,7 +6,7 @@ plugins {
 }
 
 application {
-    mainClass = "it.sagrabot.server.MainKt"
+    mainClass = "it.sagratime.server.MainKt"
 }
 
 docker {

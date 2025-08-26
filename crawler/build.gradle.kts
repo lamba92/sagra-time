@@ -10,6 +10,7 @@ distributions {
             from("src/main/python") {
                 into("app")
             }
+            from("requirements.txt")
         }
     }
 }
