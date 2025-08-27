@@ -19,16 +19,18 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.testing.ApplicationTestBuilder
 import io.ktor.server.testing.testApplication
+import it.sagratime.core.data.Event
 import it.sagratime.core.data.GeoCoordinates
 import it.sagratime.core.data.ItalianRegion
 import it.sagratime.core.data.Location
 import it.sagratime.core.data.Page
-import it.sagratime.core.data.Event
 import it.sagratime.server.ADMIN_PASSWORD
 import it.sagratime.server.ADMIN_USERNAME
 import it.sagratime.server.DB_PATH
 import it.sagratime.server.SagraTime
 import it.sagratime.server.getDocumentStoreSagraProvider
+import kotlinx.datetime.LocalDateTime
+import org.junit.jupiter.api.BeforeEach
 import kotlin.io.path.ExperimentalPathApi
 import kotlin.io.path.Path
 import kotlin.io.path.deleteRecursively
@@ -37,8 +39,6 @@ import kotlin.test.assertEquals
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
 import kotlin.time.ExperimentalTime
-import kotlinx.datetime.LocalDateTime
-import org.junit.jupiter.api.BeforeEach
 
 class ServerTests {
 

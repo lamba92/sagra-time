@@ -1,12 +1,12 @@
 package it.sagratime.server.service
 
 import com.github.lamba92.kotlin.document.store.core.ObjectCollection
-import it.sagratime.core.data.Page
 import it.sagratime.core.data.Event
-import kotlin.math.max
+import it.sagratime.core.data.Page
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.toList
 import kotlinx.datetime.LocalDateTime
+import kotlin.math.max
 
 class KotlinDocumentStoreSagraProvider(
     private val collection: ObjectCollection<Event>

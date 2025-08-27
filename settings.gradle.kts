@@ -19,6 +19,7 @@ dependencyResolutionManagement {
     repositories {
         mavenCentral()
         google()
+        maven("https://jitpack.io")
     }
     rulesMode = RulesMode.PREFER_SETTINGS
     versionCatalogs {
@@ -48,6 +49,5 @@ include(
     ":app:app-core",
     ":app:app-desktop",
     ":app:app-android",
-//    ":app:app-web-angular",
     ":app:app-web-compose",
 )

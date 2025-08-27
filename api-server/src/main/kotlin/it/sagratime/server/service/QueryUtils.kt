@@ -1,14 +1,13 @@
 package it.sagratime.server.service
 
-import it.sagratime.core.data.GeoCoordinates
 import it.sagratime.core.data.Event
+import it.sagratime.core.data.GeoCoordinates
+import kotlinx.serialization.Serializable
 import kotlin.math.asin
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
-import kotlin.text.contains
-import kotlinx.serialization.Serializable
 
 val EarthRadius
     get() = 6371.0 // Earth radius in km

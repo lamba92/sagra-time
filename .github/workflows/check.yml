@@ -44,7 +44,7 @@ jobs:
           java-version: 21
       - uses: gradle/actions/setup-gradle@v4
       - run: chmod +x gradlew
-      - run: ./gradlew ktlintCheck # nglintCheck
+      - run: ./gradlew ktlintCheck
 
   test:
     strategy:

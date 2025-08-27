@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    commonMainImplementation(libs.kotlinx.coroutines.core)
-    commonMainImplementation(libs.kotlinx.serialization.core)
-    commonMainImplementation(libs.kotlinx.datetime)
+    commonMainApi(libs.kotlinx.coroutines.core)
+    commonMainApi(libs.kotlinx.serialization.core)
+    commonMainApi(libs.kotlinx.datetime)
 }

@@ -1,7 +1,7 @@
 package it.sagratime.server.service
 
-import it.sagratime.core.data.Page
 import it.sagratime.core.data.Event
+import it.sagratime.core.data.Page
 import kotlinx.datetime.LocalDateTime
 
 interface SagraProvider {

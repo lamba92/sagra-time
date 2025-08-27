@@ -11,13 +11,13 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
-import it.sagratime.core.data.GeoCoordinates
 import it.sagratime.core.data.Event
+import it.sagratime.core.data.GeoCoordinates
 import it.sagratime.server.Principal
 import it.sagratime.server.service.LocationQuery
 import it.sagratime.server.service.SagraProvider
-import kotlin.time.ExperimentalTime
 import kotlinx.datetime.LocalDateTime
+import kotlin.time.ExperimentalTime
 
 fun Route.v1Routes(sagraProvider: SagraProvider) {
     route("v1") {

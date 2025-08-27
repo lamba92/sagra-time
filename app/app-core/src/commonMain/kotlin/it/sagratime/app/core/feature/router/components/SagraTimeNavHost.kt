@@ -4,14 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import it.sagratime.app.core.feature.router.Router
+import it.sagratime.app.core.feature.home.components.SagraTimeHome
 import it.sagratime.app.core.feature.router.SagraTimeRoute
+import it.sagratime.app.core.feature.router.SagraTimeRouter
 import org.koin.compose.koinInject
 
 @Composable
 fun SagraTimeNavHost(
-    modifier: Modifier = Modifier.Companion,
-    router: Router = koinInject(),
+    modifier: Modifier = Modifier,
+    router: SagraTimeRouter = koinInject(),
 ) {
     val activeRoute by router.activeRoute.collectAsState()
     SagraTimeNavHost(modifier, activeRoute)
@@ -23,9 +24,9 @@ fun SagraTimeNavHost(
     route: SagraTimeRoute,
 ) {
     when (route) {
-        is SagraTimeRoute.EventType -> TODO()
-        SagraTimeRoute.Home -> TODO()
-        is SagraTimeRoute.Region -> TODO()
+        SagraTimeRoute.Home -> SagraTimeHome(modifier)
         is SagraTimeRoute.Sagra -> TODO()
+        is SagraTimeRoute.EventType -> TODO()
+        is SagraTimeRoute.Region -> TODO()
     }
 }

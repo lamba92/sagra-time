@@ -1,14 +1,11 @@
 @file:Suppress("UnstableApiUsage", "OPT_IN_USAGE")
 
 import com.android.build.api.dsl.androidLibrary
-import org.jetbrains.kotlin.gradle.internal.platform.wasm.WasmPlatforms.wasmJs
 
 plugins {
     `maven-publish`
     alias(libs.plugins.android.multiplatform.library)
-    alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.kotlin.plugin.compose)
     alias(libs.plugins.kotlin.plugin.serialization)
     id("convention-ktlint")
     id("convention-version")

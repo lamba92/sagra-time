@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Sagra Time</string>
+    <string name="welcome_card_title">Benvenuto alle Sagre d'Italia</string>
+    <string name="welcome_card_subtitle">Scopri le tradizioni culinarie più autentiche del nostro paese attraverso eventi unici che celebrano la cultura locale</string>
+    <string name="welcome_card_active_events">%1$s eventi in corso</string>
+    <string name="welcome_card_yearly_event_events">%1$s eventi quest'anno</string>
+    <string name="welcome_card_all_italy">Tutta Italia</string>
 </resources>
