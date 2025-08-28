@@ -26,7 +26,7 @@ def get_initial_urls_from_ddgs(query: str, num_results: int = 10) -> list[dict[s
         return None
 
 
-async def run_crawl_for_all_regions():
+async def run_crawler():
     current_year = datetime.datetime.now().year
 
     async with async_playwright() as p:
@@ -102,4 +102,4 @@ async def run_crawl_for_all_regions():
     print("\n\n--- ALL REGIONS PROCESSED ---")
 
 if __name__ == "__main__":
-    asyncio.run(run_crawl_for_all_regions())
+    asyncio.run(run_crawler())
