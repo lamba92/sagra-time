@@ -21,18 +21,21 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import it.sagratime.app.core.feature.cards.welcome.componen.WelcomeCard
+import it.sagratime.app.core.feature.cards.search.components.SearchCard
+import it.sagratime.app.core.feature.cards.welcome.components.WelcomeCard
 import it.sagratime.app_core.generated.resources.Res
 import it.sagratime.app_core.generated.resources.app_name
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SagraTimeHome(
-    modifier: Modifier = Modifier.Companion,
+    modifier: Modifier = Modifier,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
 ) {
     Scaffold(
@@ -70,6 +73,10 @@ fun SagraTimeHome(
                 Spacer(modifier = Modifier.Companion.height(8.dp))
                 WelcomeCard()
                 Spacer(modifier = Modifier.Companion.height(8.dp))
+                val scope = rememberCoroutineScope()
+                SearchCard {
+                    scope.launch { snackbarHostState.showSnackbar("Location services are disabled!", withDismissAction = true) }
+                }
             }
         },
     )

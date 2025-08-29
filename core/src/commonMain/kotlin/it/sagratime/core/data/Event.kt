@@ -8,6 +8,7 @@ import kotlin.jvm.JvmInline
 enum class EventType {
     Sagra,
     TownFestival,
+    Other,
 }
 
 @Serializable
