@@ -44,7 +44,7 @@ object MockSagreRepository : SagreRepository {
 
 object MockLocationService : LocationService {
     private val _status =
-        MutableStateFlow<LocationServiceStatus>(LocationServiceStatus.Disabled)
+        MutableStateFlow<LocationServiceStatus>(LocationServiceStatus.NeverRequested)
     override val status: StateFlow<LocationServiceStatus> = _status.asStateFlow()
 
     override suspend fun requestLocation() {

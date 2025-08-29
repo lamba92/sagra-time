@@ -11,10 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.DateRangePicker
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuAnchorType
-import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
@@ -29,7 +26,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import it.sagratime.app.core.components.SagraTimeCard
 import it.sagratime.app.core.components.SagraTimeTheme
@@ -233,45 +229,45 @@ fun DateSelectionGroup(
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    ExposedDropdownMenuBox(
-        modifier = modifier.fillMaxWidth(),
-        expanded = expanded,
-        onExpandedChange = { expanded = it },
+//    ExposedDropdownMenuBox(
+//        modifier = modifier.fillMaxWidth(),
+//        expanded = expanded,
+//        onExpandedChange = { expanded = it },
+//    ) {
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth(),
+//                    .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Column(
-            modifier =
-                modifier
-                    .fillMaxWidth()
-                    .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            Text(
-                text = stringResource(Res.string.when_to_search),
-                style = SagraTimeTheme.typography.labelLarge,
-            )
-            FirstDateSelectionRow(onEvent, state)
-            SecondDateSelectionRow(
-                state = state,
-                onEvent = onEvent,
-                onCustomDateClick = { expanded = true },
-            )
-        }
-
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            offset = DpOffset(8.dp, 8.dp),
-        ) {
-            DateRangeSelectorPopup(
-                onDismissRequest = { event ->
-                    expanded = false
-                    if (event != null) {
-                        onEvent(event)
-                    }
-                },
-            )
-        }
+        Text(
+            text = stringResource(Res.string.when_to_search),
+            style = SagraTimeTheme.typography.labelLarge,
+        )
+        FirstDateSelectionRow(onEvent, state)
+        SecondDateSelectionRow(
+            state = state,
+            onEvent = onEvent,
+            onCustomDateClick = { expanded = true },
+        )
     }
+
+//        DropdownMenu(
+//            expanded = expanded,
+//            onDismissRequest = { expanded = false },
+//            offset = DpOffset(8.dp, 8.dp),
+//        ) {
+//            DateRangeSelectorPopup(
+//                onDismissRequest = { event ->
+//                    expanded = false
+//                    if (event != null) {
+//                        onEvent(event)
+//                    }
+//                },
+//            )
+//        }
+//    }
 }
 
 @Composable

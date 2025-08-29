@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -42,37 +43,42 @@ fun SagraTimeHome(
         modifier = modifier,
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
-            TopAppBar(
-                title = { Text(stringResource(Res.string.app_name)) },
-                navigationIcon = {
-                    Box(
-                        modifier =
-                            Modifier.Companion
-                                .size(48.dp)
-                                .background(Color.Companion.Red, shape = CircleShape)
-                                .height(4.dp),
-                        contentAlignment = Alignment.Companion.Center,
-                    ) {
-                        Icon(
-                            modifier = Modifier.Companion.size(36.dp),
-                            imageVector = Icons.Outlined.FoodBank,
-                            contentDescription = null,
-                            tint = Color.Companion.White,
-                        )
-                    }
-                },
-            )
+            Box(
+                modifier = Modifier.padding(8.dp),
+            ) {
+                TopAppBar(
+                    title = { Text(stringResource(Res.string.app_name)) },
+                    navigationIcon = {
+                        Box(
+                            modifier =
+                                Modifier
+                                    .size(48.dp)
+                                    .background(Color.Red, shape = CircleShape),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Icon(
+                                modifier = Modifier.size(36.dp),
+                                imageVector = Icons.Outlined.FoodBank,
+                                contentDescription = null,
+                                tint = Color.White,
+                            )
+                        }
+                    },
+                )
+            }
         },
         content = { innerPaddings ->
             Column(
                 modifier =
-                    Modifier.Companion
+                    Modifier
+                        .fillMaxWidth()
                         .padding(innerPaddings)
                         .padding(horizontal = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Spacer(modifier = Modifier.Companion.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 WelcomeCard()
-                Spacer(modifier = Modifier.Companion.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 val scope = rememberCoroutineScope()
                 SearchCard {
                     scope.launch { snackbarHostState.showSnackbar("Location services are disabled!", withDismissAction = true) }

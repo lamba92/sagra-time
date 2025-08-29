@@ -3,6 +3,9 @@ package it.sagratime.app.desktop
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.singleWindowApplication
 import coil3.util.Logger
 import com.jthemedetecor.OsThemeDetector
@@ -18,7 +21,12 @@ import it.sagratime.app.core.di.DIModules
 
 fun main() {
     val isSystemDarkProvider = getSystemDarkProvider()
-    singleWindowApplication {
+    singleWindowApplication(
+        state = WindowState(
+            size = DpSize(450.dp, 900.dp)
+        ),
+        resizable = false
+    ) {
         CompositionLocalProvider(
             LocalCoilLogger provides CoilDebugLogger,
             LocalCoilComponentsProviders provides debugComponentProviders,
