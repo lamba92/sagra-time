@@ -18,10 +18,10 @@ import org.jetbrains.compose.resources.stringResource
 fun AroundMeButtonContent(icon: ImageVector) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(6.dp),
-        verticalAlignment = Alignment.Companion.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            modifier = Modifier.Companion.size(16.dp),
+            modifier = Modifier.size(16.dp),
             imageVector = icon,
             contentDescription = null,
         )

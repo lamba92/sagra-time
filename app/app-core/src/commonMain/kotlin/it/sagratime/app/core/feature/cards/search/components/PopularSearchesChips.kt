@@ -26,19 +26,19 @@ fun PopularSearchesChips(
     Box {
         Row(
             modifier =
-                Modifier.Companion
+                Modifier
                     .fillMaxWidth()
                     .horizontalScroll(scrollState),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.Companion.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             when (state) {
                 SearchCardState.PopularSearches.Loading ->
                     repeat(3) { index ->
                         PastelChip(
-                            modifier = Modifier.Companion.shimmer(),
+                            modifier = Modifier.shimmer(),
                             index = index,
-                            label = { Text("margherita", modifier = Modifier.Companion.alpha(0f)) },
+                            label = { Text("margherita", modifier = Modifier.alpha(0f)) },
                         )
                     }
 

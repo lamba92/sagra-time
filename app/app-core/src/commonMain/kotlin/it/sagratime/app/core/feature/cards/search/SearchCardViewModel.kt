@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -39,15 +38,21 @@ class SearchCardViewModel(
         ) { aroundMe, locationServiceStatus ->
             when {
                 locationServiceStatus == LocationServiceStatus.Disabled ->
-                    SearchCardState.AroundMe.LocationServicesDisabled
+                    _state.update { it.copy(aroundMe = SearchCardState.AroundMe.LocationServicesDisabled) }
 
-                aroundMe == SearchCardState.AroundMe.Loading && locationServiceStatus is LocationServiceStatus.Active ->
-                    SearchCardState.AroundMe.Selected
+                aroundMe == SearchCardState.AroundMe.Loading &&
+                    locationServiceStatus is LocationServiceStatus.Active -> {
+                    _state.update {
+                        it.copy(
+                            aroundMe = SearchCardState.AroundMe.Selected,
+                            currentLocation = SearchCardState.SelectedLocation.AroundMe,
+                        )
+                    }
+                }
 
-                else -> aroundMe
+                else -> {}
             }
-        }.onEach { aroundMe -> _state.update { it.copy(aroundMe = aroundMe) } }
-            .launchIn(viewModelScope)
+        }.launchIn(viewModelScope)
     }
 
     override fun onEvent(event: SearchCardEvent) {
@@ -55,8 +60,8 @@ class SearchCardViewModel(
             SearchCardEvent.ClearClicked ->
                 _state.value = SearchCardState.DEFAULT
 
-            is SearchCardEvent.DateSelectionChanged ->
-                _state.update { it.copy(dateSelection = event.dateSelection) }
+            is SearchCardEvent.DateRangeSelectionChanged ->
+                _state.update { it.copy(selectedDateRange = event.selection) }
 
             is SearchCardEvent.QueryChanged ->
                 _state.update { it.copy(query = event.query) }
@@ -66,14 +71,8 @@ class SearchCardViewModel(
             is SearchCardEvent.SearchRadiusChanged ->
                 _state.update { it.copy(searchRadius = event.searchRadius) }
 
-            is SearchCardEvent.SelectedTypesChanged.TypeAdded ->
-                _state.update { it.copy(selectedTypes = _state.value.selectedTypes + event.type) }
-
-            is SearchCardEvent.SelectedTypesChanged.TypeRemoved ->
-                _state.update { it.copy(selectedTypes = _state.value.selectedTypes - event.type) }
-
             SearchCardEvent.AdvancedSearchClicked ->
-                _state.update { it.copy(isAdvancedSearch = true) }
+                _state.update { it.copy(isAdvancedSearch = !it.isAdvancedSearch) }
 
             SearchCardEvent.AdvancedSearchDismissed ->
                 _state.update { it.copy(isAdvancedSearch = false) }
@@ -83,6 +82,25 @@ class SearchCardViewModel(
 
             is SearchCardEvent.PopularSearchClick ->
                 _state.update { it.copy(query = event.query) }
+
+            is SearchCardEvent.SelectedTypesChanged ->
+                _state.update {
+                    it.copy(
+                        selectedTypes =
+                            when (event.type) {
+                                in it.selectedTypes -> it.selectedTypes - event.type
+                                else -> it.selectedTypes + event.type
+                            },
+                    )
+                }
+
+            is SearchCardEvent.LocationSelected ->
+                _state.update {
+                    it.copy(
+                        currentLocation = SearchCardState.SelectedLocation.Custom(event.location),
+                        aroundMe = SearchCardState.AroundMe.Unselected,
+                    )
+                }
         }
     }
 

@@ -16,9 +16,9 @@ import it.sagratime.app.core.di.DIModules
 fun main() {
     singleWindowApplication(
         state = WindowState(
-            size = DpSize(450.dp, 900.dp)
+            size = DpSize(450.dp, 1200.dp)
         ),
-        resizable = false
+        resizable = true
     ) {
         CompositionLocalProvider(
             LocalCoilLogger provides CoilDebugLogger,

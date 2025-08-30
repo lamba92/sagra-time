@@ -17,14 +17,14 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun PopularSearchesRow(
-    modifier: Modifier = Modifier.Companion,
+    modifier: Modifier = Modifier,
     state: SearchCardState.PopularSearches,
     onEvent: (SearchCardEvent.PopularSearchClick) -> Unit,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.Companion.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = stringResource(Res.string.popular_searches),

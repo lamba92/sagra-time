@@ -1,6 +1,11 @@
 @file:Suppress("UnstableApiUsage", "OPT_IN_USAGE")
 
 import com.android.build.api.dsl.androidLibrary
+import gradle.kotlin.dsl.accessors._dece36eebfa45006e335f49d7d490da6.androidMain
+import gradle.kotlin.dsl.accessors._dece36eebfa45006e335f49d7d490da6.commonMain
+import gradle.kotlin.dsl.accessors._dece36eebfa45006e335f49d7d490da6.publishing
+import gradle.kotlin.dsl.accessors._dece36eebfa45006e335f49d7d490da6.sourceSets
+import org.jetbrains.kotlin.gradle.internal.platform.wasm.WasmPlatforms.wasmJs
 
 plugins {
     `maven-publish`

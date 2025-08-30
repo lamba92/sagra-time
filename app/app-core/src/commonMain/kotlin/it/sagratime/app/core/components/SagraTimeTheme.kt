@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -36,6 +37,7 @@ val LocalIsSystemDarkProvider =
 fun SagraTimeTheme(
     isDark: Boolean = LocalIsSystemDarkProvider.current.isDark,
     seedColor: Color = Color.Yellow,
+    typography: Typography = InterTypography(),
     content: @Composable () -> Unit,
 ) {
     val colorScheme =
@@ -48,7 +50,18 @@ fun SagraTimeTheme(
         )
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = InterTypography(),
+        typography = typography,
+        content = content,
+    )
+}
+
+@Composable
+fun WithLocalTypography(
+    typography: Typography,
+    content: @Composable () -> Unit,
+) {
+    MaterialTheme(
+        typography = typography,
         content = content,
     )
 }
@@ -104,46 +117,102 @@ data class CardsMetrics(
 }
 
 @Composable
-private fun InterTypography(): Typography {
-    val interFont =
+private fun InterTypography(
+    interFont: FontFamily =
         FontFamily(
             Font(Res.font.Inter_24pt_Regular, FontWeight.Normal),
             Font(Res.font.Inter_24pt_SemiBold, FontWeight.Bold),
-        )
-
-    return with(MaterialTheme.typography) {
-        copy(
-            displayLarge = displayLarge.copy(fontFamily = interFont, fontWeight = FontWeight.Bold),
-            displayMedium =
-                displayMedium.copy(
-                    fontFamily = interFont,
-                    fontWeight = FontWeight.Bold,
-                ),
-            displaySmall = displaySmall.copy(fontFamily = interFont, fontWeight = FontWeight.Bold),
-            headlineLarge =
-                headlineLarge.copy(
-                    fontFamily = interFont,
-                    fontWeight = FontWeight.Bold,
-                ),
-            headlineMedium =
-                headlineMedium.copy(
-                    fontFamily = interFont,
-                    fontWeight = FontWeight.Bold,
-                ),
-            headlineSmall =
-                headlineSmall.copy(
-                    fontFamily = interFont,
-                    fontWeight = FontWeight.Bold,
-                ),
-            titleLarge = titleLarge.copy(fontFamily = interFont, fontWeight = FontWeight.Bold),
-            titleMedium = titleMedium.copy(fontFamily = interFont, fontWeight = FontWeight.Bold),
-            titleSmall = titleSmall.copy(fontFamily = interFont, fontWeight = FontWeight.Bold),
-            labelLarge = labelLarge.copy(fontFamily = interFont, fontWeight = FontWeight.Normal),
-            labelMedium = labelMedium.copy(fontFamily = interFont, fontWeight = FontWeight.Normal),
-            labelSmall = labelSmall.copy(fontFamily = interFont, fontWeight = FontWeight.Normal),
-            bodyLarge = bodyLarge.copy(fontFamily = interFont, fontWeight = FontWeight.Normal),
-            bodyMedium = bodyMedium.copy(fontFamily = interFont, fontWeight = FontWeight.Normal),
-            bodySmall = bodySmall.copy(fontFamily = interFont, fontWeight = FontWeight.Normal),
-        )
-    }
-}
+        ),
+    displayLarge: TextStyle =
+        MaterialTheme.typography.displayLarge.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Bold,
+        ),
+    displayMedium: TextStyle =
+        MaterialTheme.typography.displayMedium.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Bold,
+        ),
+    displaySmall: TextStyle =
+        MaterialTheme.typography.displaySmall.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Bold,
+        ),
+    headlineLarge: TextStyle =
+        MaterialTheme.typography.headlineLarge.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Bold,
+        ),
+    headlineMedium: TextStyle =
+        MaterialTheme.typography.headlineMedium.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Bold,
+        ),
+    headlineSmall: TextStyle =
+        MaterialTheme.typography.headlineSmall.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Bold,
+        ),
+    titleLarge: TextStyle =
+        MaterialTheme.typography.titleLarge.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Bold,
+        ),
+    titleMedium: TextStyle =
+        MaterialTheme.typography.titleMedium.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Bold,
+        ),
+    titleSmall: TextStyle =
+        MaterialTheme.typography.titleSmall.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Bold,
+        ),
+    labelLarge: TextStyle =
+        MaterialTheme.typography.labelLarge.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Normal,
+        ),
+    labelMedium: TextStyle =
+        MaterialTheme.typography.labelMedium.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Normal,
+        ),
+    labelSmall: TextStyle =
+        MaterialTheme.typography.labelSmall.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Normal,
+        ),
+    bodyLarge: TextStyle =
+        MaterialTheme.typography.bodyLarge.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Normal,
+        ),
+    bodyMedium: TextStyle =
+        MaterialTheme.typography.bodyMedium.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Normal,
+        ),
+    bodySmall: TextStyle =
+        MaterialTheme.typography.bodySmall.copy(
+            fontFamily = interFont,
+            fontWeight = FontWeight.Normal,
+        ),
+): Typography =
+    MaterialTheme.typography.copy(
+        displayLarge = displayLarge,
+        displayMedium = displayMedium,
+        displaySmall = displaySmall,
+        headlineLarge = headlineLarge,
+        headlineMedium = headlineMedium,
+        headlineSmall = headlineSmall,
+        titleLarge = titleLarge,
+        titleMedium = titleMedium,
+        titleSmall = titleSmall,
+        labelLarge = labelLarge,
+        labelMedium = labelMedium,
+        labelSmall = labelSmall,
+        bodyLarge = bodyLarge,
+        bodyMedium = bodyMedium,
+        bodySmall = bodySmall,
+    )

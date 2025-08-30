@@ -20,7 +20,7 @@ fun SagraTimeNavHost(
 
 @Composable
 fun SagraTimeNavHost(
-    modifier: Modifier = Modifier.Companion,
+    modifier: Modifier = Modifier,
     route: SagraTimeRoute,
 ) {
     when (route) {

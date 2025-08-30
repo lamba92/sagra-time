@@ -6,7 +6,8 @@
     <string name="welcome_card_yearly_event_events">%1$s eventi quest'anno</string>
     <string name="welcome_card_all_italy">Tutta Italia</string>
     <string name="search_card_title">Trova la tua sagra ideale</string>
-    <string name="search_card_placeholder">Cerca sagre, specialità, luoghi...</string>
+    <string name="search_card_placeholder">Cerca sagre, specialità...</string>
+    <string name="search_card_location_placeholder">Cerca un luogo...</string>
     <string name="around_me_button_text">Vicino a me</string>
     <string name="advanced_filters_button_text">Filtri Avanzati</string>
     <string name="popular_searches">Ricerche popolari:</string>
@@ -14,10 +15,15 @@
     <string name="today">Oggi</string>
     <string name="this_weekend">Questo weekend</string>
     <string name="next_week">Prossima settimana</string>
+    <string name="next_month">Prossimo mese</string>
     <string name="custom">Personalizza</string>
     <string name="distance">Distanza</string>
     <string name="search_radius">Raggio di ricerca</string>
     <string name="km">km</string>
     <string name="miles">miles</string>
     <string name="save">Salva</string>
+    <string name="event_type">Tipologia evento</string>
+    <string name="sagre">Sagre</string>
+    <string name="town_festivals">Feste di paese</string>
+    <string name="other">Altro</string>
 </resources>

@@ -30,7 +30,7 @@ object JarUriFetcherFactory : Fetcher.Factory<Uri> {
             // Open the entry inside the JAR and expose it as an ImageSource
             val input = URI(s).toURL().openStream()
             val source = input.source().buffer()
-            val imageSource = ImageSource(source, FileSystem.Companion.SYSTEM)
+            val imageSource = ImageSource(source, FileSystem.SYSTEM)
 
             val mime = URLConnection.guessContentTypeFromName(s) // e.g. "image/png"
             SourceFetchResult(

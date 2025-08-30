@@ -16,7 +16,7 @@ import it.sagratime.app.core.feature.cards.search.SearchCardState
 
 @Composable
 fun AroundMeButton(
-    modifier: Modifier = Modifier.Companion,
+    modifier: Modifier = Modifier,
     state: SearchCardState.AroundMe,
     onClick: () -> Unit,
 ) {
@@ -37,7 +37,7 @@ fun AroundMeButton(
                 enabled = false,
                 modifier = modifier,
                 shape = SagraTimeTheme.shapes.medium,
-                content = { CircularProgressIndicator(modifier = Modifier.Companion.size(16.dp)) },
+                content = { CircularProgressIndicator(modifier = Modifier.size(16.dp)) },
             )
 
         SearchCardState.AroundMe.Unselected ->

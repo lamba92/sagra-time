@@ -1,17 +1,27 @@
+@file:OptIn(ExperimentalTime::class)
+
 package it.sagratime.app.core.feature.cards.search
 
+import it.sagratime.app.core.feature.cards.search.components.toLocalDate
 import it.sagratime.core.data.EventType
+import it.sagratime.core.data.Location
 import it.sagratime.core.units.Length
 import it.sagratime.core.units.MeasurementSystem
 import it.sagratime.core.units.kilometers
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
+import kotlin.time.Clock
+import kotlin.time.Duration.Companion.days
+import kotlin.time.ExperimentalTime
 
 @Serializable
 data class SearchCardState(
     val query: String = "",
     val isAdvancedSearch: Boolean = false,
-    val dateSelection: DateSelection = DateSelection.Today,
+    val currentLocation: SelectedLocation? = null,
+    val selectedDateRange: DateRangeSelection = DateRangeSelection.nextMonth(),
     val searchRadius: Length = 50.kilometers,
     val measurementSystem: MeasurementSystem = MeasurementSystem.Metric,
     val selectedTypes: Set<EventType> = emptySet(),
@@ -20,6 +30,17 @@ data class SearchCardState(
 ) {
     companion object {
         val DEFAULT = SearchCardState()
+    }
+
+    @Serializable
+    sealed interface SelectedLocation {
+        @Serializable
+        object AroundMe : SelectedLocation
+
+        @Serializable
+        data class Custom(
+            val location: Location,
+        ) : SelectedLocation
     }
 
     @Serializable
@@ -42,20 +63,29 @@ data class SearchCardState(
     }
 
     @Serializable
-    sealed interface DateSelection {
-        @Serializable
-        object Today : DateSelection
+    enum class DateButtonSelection {
+        Today,
+        ThisWeekend,
+        NextWeek,
+        NextMonth,
+        Custom,
+    }
 
-        @Serializable
-        object ThisWeekend : DateSelection
+    @Serializable
+    data class DateRangeSelection(
+        val start: LocalDate,
+        val end: LocalDate,
+    ) {
+        companion object {
+            fun nextMonth(): DateRangeSelection {
+                val now = Clock.System.now()
+                val nextMonth = now + 30.days
 
-        @Serializable
-        object NextWeek : DateSelection
-
-        @Serializable
-        data class Custom(
-            val from: LocalDate,
-            val to: LocalDate?,
-        ) : DateSelection
+                return DateRangeSelection(
+                    start = now.toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate(),
+                    end = nextMonth.toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate(),
+                )
+            }
+        }
     }
 }

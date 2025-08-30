@@ -1,6 +1,7 @@
 package it.sagratime.app.core.feature.cards.search
 
 import it.sagratime.core.data.EventType
+import it.sagratime.core.data.Location
 import it.sagratime.core.units.Length
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
@@ -15,8 +16,8 @@ sealed interface SearchCardEvent {
 
     @Serializable
     @JvmInline
-    value class DateSelectionChanged(
-        val dateSelection: SearchCardState.DateSelection,
+    value class DateRangeSelectionChanged(
+        val selection: SearchCardState.DateRangeSelection,
     ) : SearchCardEvent
 
     @Serializable
@@ -35,19 +36,10 @@ sealed interface SearchCardEvent {
     object AroundMeClicked : SearchCardEvent
 
     @Serializable
-    sealed interface SelectedTypesChanged : SearchCardEvent {
-        @Serializable
-        @JvmInline
-        value class TypeAdded(
-            val type: EventType,
-        ) : SelectedTypesChanged
-
-        @Serializable
-        @JvmInline
-        value class TypeRemoved(
-            val type: EventType,
-        ) : SelectedTypesChanged
-    }
+    @JvmInline
+    value class SelectedTypesChanged(
+        val type: EventType,
+    ) : SearchCardEvent
 
     @Serializable
     object SearchClicked : SearchCardEvent
@@ -59,5 +51,11 @@ sealed interface SearchCardEvent {
     @JvmInline
     value class PopularSearchClick(
         val query: String,
+    ) : SearchCardEvent
+
+    @Serializable
+    @JvmInline
+    value class LocationSelected(
+        val location: Location,
     ) : SearchCardEvent
 }

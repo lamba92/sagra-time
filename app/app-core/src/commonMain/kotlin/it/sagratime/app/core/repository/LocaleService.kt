@@ -4,5 +4,5 @@ import it.sagratime.core.data.Locale
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class LocaleService {
-    val currentLocale = MutableStateFlow(Locale.Companion.IT)
+    val currentLocale = MutableStateFlow(Locale.IT)
 }
