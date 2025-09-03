@@ -16,6 +16,11 @@ interface SagreRepository {
     suspend fun getSagraStatistics(): SagraStatistics
 
     suspend fun getPopularSearches(locale: Locale): List<String>
+
+    suspend fun searchCompletionQuery(
+        query: String,
+        locale: Locale,
+    ): List<String>
 }
 
 @Serializable
@@ -35,6 +40,19 @@ object MockSagreRepository : SagreRepository {
 
     override suspend fun getPopularSearches(locale: Locale): List<String> {
         delay(Random.nextInt(4, 10).seconds)
+        return listOf(
+            "Pizza fritta",
+            "Arrosticini",
+            "Vino",
+            "Castagne",
+        )
+    }
+
+    override suspend fun searchCompletionQuery(
+        query: String,
+        locale: Locale,
+    ): List<String> {
+        delay(Random.nextInt(1, 2).seconds)
         return listOf(
             "Pizza fritta",
             "Arrosticini",
@@ -62,7 +80,7 @@ object MockLocationService : LocationService {
         query: String,
         locale: Locale,
     ): List<Location> {
-        delay(Random.nextInt(4, 10).seconds)
+        delay(Random.nextInt(1, 2).seconds)
         return List(5) { index ->
             Location(
                 locale = locale,

@@ -31,15 +31,12 @@ import kotlin.time.ExperimentalTime
 fun SearchCard(
     modifier: Modifier = Modifier,
     viewModel: SearchCardViewModel = koinInject(),
-    onDisabledLocationServicesRequest: () -> Unit = { },
+    onEffect: (SearchCardEffect) -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     LaunchedEffect(Unit) {
         viewModel.effects.collect { effect ->
-            when (effect) {
-                SearchCardEffect.NotifyLocationServicesDisabled ->
-                    onDisabledLocationServicesRequest()
-            }
+            onEffect(effect)
         }
     }
     SearchCard(
@@ -62,12 +59,8 @@ fun SearchCard(
             SearchCardTitle()
             Spacer(modifier = Modifier.height(12.dp))
             SearchCardTextField(
-                text = state.query,
-                onValueChange = {
-                    onEvent(
-                        SearchCardEvent.QueryChanged(it),
-                    )
-                },
+                state = state,
+                onEvent = onEvent,
             )
             Spacer(modifier = Modifier.height(12.dp))
             AnimatedContent(targetState = state.isAdvancedSearch) { isAdvancedSearch ->
@@ -103,6 +96,11 @@ fun SearchCard(
                     AdvancedSearchCardContent(state = state, onEvent = onEvent)
                 }
             }
+
+            SearchActionsRow(
+                modifier = Modifier.fillMaxWidth(),
+                onEvent = onEvent,
+            )
         }
     }
 }

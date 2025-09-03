@@ -45,7 +45,7 @@ sealed interface SearchCardEvent {
     object SearchClicked : SearchCardEvent
 
     @Serializable
-    object ClearClicked : SearchCardEvent
+    object ClearSearchClick : SearchCardEvent
 
     @Serializable
     @JvmInline
@@ -67,4 +67,10 @@ sealed interface SearchCardEvent {
 
     @Serializable
     object ClearLocationSearchClick : SearchCardEvent
+
+    @Serializable
+    @JvmInline
+    value class SearchTipClick(
+        val searchTip: String,
+    ) : SearchCardEvent
 }

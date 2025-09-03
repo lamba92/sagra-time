@@ -26,4 +26,26 @@
     <string name="sagre">Sagre</string>
     <string name="town_festivals">Feste di paese</string>
     <string name="other">Altro</string>
+    <string name="abruzzo">Abruzzo</string>
+    <string name="basilicata">Basilicata</string>
+    <string name="calabria">Calabria</string>
+    <string name="campania">Campania</string>
+    <string name="emilia_romagna">Emilia Romagna</string>
+    <string name="friuli_venezia_giulia">Friuli Venezia Giulia</string>
+    <string name="lazio">Lazio</string>
+    <string name="liguria">Liguria</string>
+    <string name="lombardia">Lombardia</string>
+    <string name="marche">Marche</string>
+    <string name="molise">Molise</string>
+    <string name="piemonte">Piemonte</string>
+    <string name="puglia">Puglia</string>
+    <string name="sardegna">Sardegna</string>
+    <string name="sicilia">Sicilia</string>
+    <string name="toscana">Toscana</string>
+    <string name="trentino_alto_adige">TrentinoAltoAdige</string>
+    <string name="umbria">Umbria</string>
+    <string name="valle_d_aosta">ValledAosta</string>
+    <string name="veneto">Veneto</string>
+    <string name="search_card_clear_search">Reimposta</string>
+    <string name="search_card_search">Cerca</string>
 </resources>

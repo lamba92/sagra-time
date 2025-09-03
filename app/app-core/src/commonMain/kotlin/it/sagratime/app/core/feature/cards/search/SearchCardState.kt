@@ -2,6 +2,7 @@
 
 package it.sagratime.app.core.feature.cards.search
 
+import it.sagratime.app.core.feature.cards.search.SearchCardState.Companion.INITIAL
 import it.sagratime.app.core.feature.cards.search.components.toLocalDate
 import it.sagratime.core.data.EventType
 import it.sagratime.core.data.Location
@@ -34,7 +35,7 @@ data class SearchCardState(
     val popularSearches: PopularSearches = PopularSearches.Loading,
 ) {
     companion object {
-        val DEFAULT = SearchCardState()
+        val INITIAL = SearchCardState()
     }
 
     @Serializable
@@ -83,3 +84,17 @@ data class SearchCardState(
         }
     }
 }
+
+fun SearchCardState.clear() =
+    copy(
+        query = INITIAL.query,
+        queryTips = INITIAL.queryTips,
+        isQueryTipsLoading = INITIAL.isQueryTipsLoading,
+        locationQuery = INITIAL.locationQuery,
+        locationQueryTips = INITIAL.locationQueryTips,
+        selectedLocation = INITIAL.selectedLocation,
+        isLocationQueryTipsLoading = INITIAL.isLocationQueryTipsLoading,
+        selectedDateRange = INITIAL.selectedDateRange,
+        searchRadius = INITIAL.searchRadius,
+        selectedTypes = INITIAL.selectedTypes,
+    )

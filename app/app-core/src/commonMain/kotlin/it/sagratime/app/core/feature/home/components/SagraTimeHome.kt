@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import it.sagratime.app.core.feature.cards.search.SearchCardEffect
 import it.sagratime.app.core.feature.cards.search.components.SearchCard
 import it.sagratime.app.core.feature.cards.welcome.components.WelcomeCard
 import it.sagratime.app_core.generated.resources.Res
@@ -86,7 +87,12 @@ fun SagraTimeHome(
                 SearchCard {
                     scope.launch {
                         snackbarHostState.showSnackbar(
-                            "Location services are disabled!",
+                            when (it) {
+                                SearchCardEffect.NotifyLocationServicesDisabled ->
+                                    "Location services are disabled!"
+                                is SearchCardEffect.Search ->
+                                    "Search not yet implemented!\nQuery: $it"
+                            },
                             withDismissAction = true,
                         )
                     }
