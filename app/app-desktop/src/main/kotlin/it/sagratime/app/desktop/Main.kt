@@ -16,7 +16,7 @@ import it.sagratime.app.core.di.DIModules
 fun main() {
     singleWindowApplication(
         state = WindowState(
-            size = DpSize(450.dp, 1200.dp)
+            size = DpSize(450.dp, 1000.dp)
         ),
         resizable = true
     ) {

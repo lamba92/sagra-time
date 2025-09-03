@@ -17,6 +17,3 @@ abstract class MVIViewModel<State, Effect, Event> : ViewModel() {
 
     abstract fun onEvent(event: Event)
 }
-
-val EmptySharedFlow
-    get() = MutableSharedFlow<Nothing>()
