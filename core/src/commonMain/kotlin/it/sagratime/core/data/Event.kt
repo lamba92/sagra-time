@@ -37,6 +37,7 @@ data class GeoCoordinates(
 
 @Serializable
 data class Location(
+    val locale: Locale,
     val geoCoordinates: GeoCoordinates,
     val cityName: String,
     val region: ItalianRegion,

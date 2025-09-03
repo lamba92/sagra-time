@@ -55,7 +55,16 @@ sealed interface SearchCardEvent {
 
     @Serializable
     @JvmInline
-    value class LocationSelected(
+    value class LocationQueryChanged(
+        val query: String,
+    ) : SearchCardEvent
+
+    @Serializable
+    @JvmInline
+    value class LocationTipCLick(
         val location: Location,
     ) : SearchCardEvent
+
+    @Serializable
+    object ClearLocationSearchClick : SearchCardEvent
 }

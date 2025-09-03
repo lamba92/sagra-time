@@ -19,8 +19,13 @@ import kotlin.time.ExperimentalTime
 @Serializable
 data class SearchCardState(
     val query: String = "",
+    val queryTips: List<String> = emptyList(),
+    val isQueryTipsLoading: Boolean = false,
+    val locationQuery: String = "",
+    val locationQueryTips: List<Location> = emptyList(),
+    val selectedLocation: Location? = null,
+    val isLocationQueryTipsLoading: Boolean = false,
     val isAdvancedSearch: Boolean = false,
-    val currentLocation: SelectedLocation? = null,
     val selectedDateRange: DateRangeSelection = DateRangeSelection.nextMonth(),
     val searchRadius: Length = 50.kilometers,
     val measurementSystem: MeasurementSystem = MeasurementSystem.Metric,
@@ -30,17 +35,6 @@ data class SearchCardState(
 ) {
     companion object {
         val DEFAULT = SearchCardState()
-    }
-
-    @Serializable
-    sealed interface SelectedLocation {
-        @Serializable
-        object AroundMe : SelectedLocation
-
-        @Serializable
-        data class Custom(
-            val location: Location,
-        ) : SelectedLocation
     }
 
     @Serializable

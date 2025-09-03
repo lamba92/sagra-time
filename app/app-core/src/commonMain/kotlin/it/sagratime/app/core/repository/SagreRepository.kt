@@ -1,7 +1,9 @@
 package it.sagratime.app.core.repository
 
 import it.sagratime.core.data.GeoCoordinates
+import it.sagratime.core.data.ItalianRegion
 import it.sagratime.core.data.Locale
+import it.sagratime.core.data.Location
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -54,5 +56,20 @@ object MockLocationService : LocationService {
         delay(Random.nextInt(4, 10).seconds)
         _status.value =
             LocationServiceStatus.Active(GeoCoordinates(0.0, 0.0))
+    }
+
+    override suspend fun citiesCompletionQuery(
+        query: String,
+        locale: Locale,
+    ): List<Location> {
+        delay(Random.nextInt(4, 10).seconds)
+        return List(5) { index ->
+            Location(
+                locale = locale,
+                geoCoordinates = GeoCoordinates(0.0, 0.0),
+                cityName = "City $index",
+                region = ItalianRegion.entries[index],
+            )
+        }
     }
 }
