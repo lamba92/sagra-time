@@ -27,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import it.sagratime.app.core.components.ComposableContent
 import it.sagratime.app.core.feature.cards.search.SearchCardEvent
 import it.sagratime.app.core.feature.cards.search.SearchCardState
 import it.sagratime.app_core.generated.resources.Res
@@ -99,20 +98,3 @@ fun SearchCardTextField(
         }
     }
 }
-
-@Composable
-private fun getClearTextIconContent(
-    text: String,
-    onValueChange: (String) -> Unit,
-): ComposableContent? =
-    if (text.isEmpty()) {
-        null
-    } else {
-        {
-            Icon(
-                imageVector = Icons.Filled.Close,
-                contentDescription = null,
-                modifier = Modifier.clickable { onValueChange("") },
-            )
-        }
-    }

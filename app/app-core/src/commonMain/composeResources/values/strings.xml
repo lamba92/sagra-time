@@ -48,4 +48,14 @@
     <string name="veneto">Veneto</string>
     <string name="search_card_clear_search">Reimposta</string>
     <string name="search_card_search">Cerca</string>
+    <string name="what_is_a_sagra_title">Cos'è una sagra?</string>
+    <string name="what_is_a_sagra_subtitle">Scopri il cuore pulsante della tradizione italiana</string>
+    <string name="what_is_a_sagra_tradition_snippet_title">Tradizione Culinaria</string>
+    <string name="what_is_a_sagra_tradition_snippet_description">Le sagre celebrano prodotti locali e ricette tradizionali tramandate di generazione in generazione, offrendo un'esperienza gastronomica autentica e genuina.</string>
+    <string name="what_is_a_sagra_community_snippet_title">Comunità e Socialità</string>
+    <string name="what_is_a_sagra_community_snippet_description">Ogni sagra è un momento di aggregazione sociale dove la comunità locale si riunisce per condividere tradizioni, storie e sapori in un'atmosfera festosa e accogliente.</string>
+    <string name="what_is_a_sagra_land_identity_snippet_title">Territorio e Identità</string>
+    <string name="what_is_a_sagra_land_identity_snippet_description">Le sagre valorizzano il territorio locale, promuovendo prodotti tipici e tradizioni regionali che rappresentano l'identità culturale di ogni zona d'Italia.</string>
+    <string name="what_is_a_sagra_culture_snippet_title">Cultura e Intrattenimento</string>
+    <string name="what_is_a_sagra_culture_snippet_description">Oltre al cibo, le sagre offrono spettacoli musicali, danze folkloristiche, mostre artigianali e attività per tutta la famiglia, creando un'esperienza completa e coinvolgente.</string>
 </resources>
