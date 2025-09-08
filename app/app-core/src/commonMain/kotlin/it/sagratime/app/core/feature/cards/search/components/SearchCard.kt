@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -58,6 +59,14 @@ fun SearchCard(
                 state = state,
                 onEvent = onEvent,
             )
+            val popularSearchesScrollState = rememberScrollState()
+            AnimatedVisibility(state.isAdvancedSearch) {
+                PopularSearchesRow(
+                    state = state.popularSearches,
+                    onEvent = onEvent,
+                    scrollState = popularSearchesScrollState,
+                )
+            }
             AnimatedVisibility(state.isAdvancedSearch) {
                 LocationTextField(state = state, onEvent = onEvent)
             }
@@ -75,8 +84,14 @@ fun SearchCard(
             AnimatedVisibility(state.isAdvancedSearch) {
                 AdvancedSearchCardContent(state = state, onEvent = onEvent)
             }
-            PopularSearchesRow(state = state.popularSearches, onEvent = onEvent)
 
+            AnimatedVisibility(!state.isAdvancedSearch) {
+                PopularSearchesRow(
+                    state = state.popularSearches,
+                    onEvent = onEvent,
+                    scrollState = popularSearchesScrollState,
+                )
+            }
             SearchActionsRow(
                 modifier = Modifier.fillMaxWidth(),
                 onEvent = onEvent,

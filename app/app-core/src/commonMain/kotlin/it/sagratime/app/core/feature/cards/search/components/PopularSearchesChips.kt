@@ -1,11 +1,11 @@
 package it.sagratime.app.core.feature.cards.search.components
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,8 +21,8 @@ import it.sagratime.app.core.feature.cards.search.SearchCardState
 fun PopularSearchesChips(
     state: SearchCardState.PopularSearches,
     onEvent: (SearchCardEvent.PopularSearchClick) -> Unit,
+    scrollState: ScrollState,
 ) {
-    val scrollState = rememberScrollState()
     Box {
         Row(
             modifier =

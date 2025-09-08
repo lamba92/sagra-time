@@ -1,5 +1,6 @@
 package it.sagratime.app.core.feature.cards.search.components
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +21,7 @@ fun PopularSearchesRow(
     modifier: Modifier = Modifier,
     state: SearchCardState.PopularSearches,
     onEvent: (SearchCardEvent.PopularSearchClick) -> Unit,
+    scrollState: ScrollState,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -34,6 +36,7 @@ fun PopularSearchesRow(
         PopularSearchesChips(
             state = state,
             onEvent = onEvent,
+            scrollState = scrollState,
         )
     }
 }
