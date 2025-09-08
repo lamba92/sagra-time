@@ -26,8 +26,8 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun AdvancedSearchCardContent(
     state: SearchCardState,
-    modifier: Modifier = Modifier,
     onEvent: (SearchCardEvent) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
@@ -35,7 +35,6 @@ fun AdvancedSearchCardContent(
     ) {
         TypeSelectionGroup(state, onEvent)
         DateSelectionGroup(state, onEvent)
-        DistanceSlider(state, onEvent)
     }
 }
 

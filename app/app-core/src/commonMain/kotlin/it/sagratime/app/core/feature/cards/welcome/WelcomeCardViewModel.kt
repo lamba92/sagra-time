@@ -2,14 +2,14 @@ package it.sagratime.app.core.feature.cards.welcome
 
 import androidx.lifecycle.viewModelScope
 import it.sagratime.app.core.MVIViewModel
-import it.sagratime.app.core.repository.SagreRepository
+import it.sagratime.app.core.repository.EventRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class WelcomeCardViewModel(
-    private val sagreRepository: SagreRepository,
+    private val eventRepository: EventRepository,
 ) : MVIViewModel<WelcomeCardState, Nothing, Nothing>() {
     private val _state =
         MutableStateFlow<WelcomeCardState>(WelcomeCardState.Loading)
@@ -19,7 +19,7 @@ class WelcomeCardViewModel(
 
     init {
         viewModelScope.launch {
-            _state.value = WelcomeCardState.Ready(sagreRepository.getSagraStatistics())
+            _state.value = WelcomeCardState.Ready(eventRepository.getEventStatistics())
         }
     }
 

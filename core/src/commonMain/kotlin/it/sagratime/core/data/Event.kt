@@ -1,6 +1,6 @@
 package it.sagratime.core.data
 
-import kotlinx.datetime.LocalDateTime
+import it.sagratime.core.datetime.ZonedDateTime
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
 
@@ -13,18 +13,20 @@ enum class EventType {
 
 @Serializable
 @JvmInline
-value class SagraId(
+value class EventId(
     val id: String,
 )
 
 @Serializable
 data class Event(
-    val id: SagraId,
+    val id: EventId,
+    val imageUrl: String? = null,
     val type: EventType,
     val name: String,
     val food: List<String>,
-    val from: LocalDateTime,
-    val until: LocalDateTime,
+    val from: ZonedDateTime,
+    val until: ZonedDateTime,
+    val sourceLinks: List<String>,
     val description: String? = null,
     val location: Location,
 )

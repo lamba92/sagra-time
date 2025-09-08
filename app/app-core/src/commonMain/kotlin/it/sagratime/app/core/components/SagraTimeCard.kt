@@ -1,7 +1,7 @@
 package it.sagratime.app.core.components
 
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,7 +12,7 @@ fun SagraTimeCard(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Card(
-        modifier = modifier.width(SagraTimeTheme.metrics.cards.width),
+        modifier = modifier.fillMaxWidth(),
         content = content,
     )
 }

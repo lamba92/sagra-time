@@ -1,9 +1,8 @@
 package it.sagratime.app.core.feature.cards.search
 
-import it.sagratime.core.data.EventType
-import it.sagratime.core.data.Location
-import it.sagratime.core.units.Length
+import it.sagratime.core.data.SearchEventQuery
 import kotlinx.serialization.Serializable
+import kotlin.jvm.JvmInline
 
 @Serializable
 sealed interface SearchCardEffect {
@@ -11,11 +10,8 @@ sealed interface SearchCardEffect {
     data object NotifyLocationServicesDisabled : SearchCardEffect
 
     @Serializable
-    data class Search(
-        val query: String,
-        val location: Location?,
-        val radius: Length,
-        val types: Set<EventType>,
-        val dateRange: SearchCardState.DateRangeSelection,
+    @JvmInline
+    value class Search(
+        val query: SearchEventQuery,
     ) : SearchCardEffect
 }

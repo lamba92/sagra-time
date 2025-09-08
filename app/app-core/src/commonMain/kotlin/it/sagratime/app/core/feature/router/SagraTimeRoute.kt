@@ -1,7 +1,7 @@
 package it.sagratime.app.core.feature.router
 
+import it.sagratime.core.data.EventId
 import it.sagratime.core.data.ItalianRegion
-import it.sagratime.core.data.SagraId
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,7 +14,7 @@ sealed interface SagraTimeRoute {
     @Serializable
     @SerialName("sagra")
     data class Sagra(
-        val id: SagraId,
+        val id: EventId,
     ) : SagraTimeRoute
 
     @Serializable

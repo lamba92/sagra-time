@@ -16,6 +16,8 @@ interface LocationService {
         query: String,
         locale: Locale,
     ): List<Location>
+
+    suspend fun getIpGeoCoordinates(): GeoCoordinates
 }
 
 @Serializable

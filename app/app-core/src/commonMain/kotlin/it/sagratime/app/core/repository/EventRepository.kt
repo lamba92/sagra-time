@@ -1,10 +1,12 @@
 package it.sagratime.app.core.repository
 
+import it.sagratime.core.data.Event
 import it.sagratime.core.data.Locale
+import it.sagratime.core.data.SearchEventQuery
 import kotlinx.serialization.Serializable
 
-interface SagreRepository {
-    suspend fun getSagraStatistics(): SagraStatistics
+interface EventRepository {
+    suspend fun getEventStatistics(): SagraStatistics
 
     suspend fun getPopularSearches(locale: Locale): List<String>
 
@@ -12,6 +14,8 @@ interface SagreRepository {
         query: String,
         locale: Locale,
     ): List<String>
+
+    suspend fun search(query: SearchEventQuery): List<Event>
 }
 
 @Serializable

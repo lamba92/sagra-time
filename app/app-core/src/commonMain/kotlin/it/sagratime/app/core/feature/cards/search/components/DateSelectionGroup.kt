@@ -24,9 +24,9 @@ import it.sagratime.app.core.feature.cards.search.SearchCardEvent
 import it.sagratime.app.core.feature.cards.search.SearchCardState
 import it.sagratime.app_core.generated.resources.Res
 import it.sagratime.app_core.generated.resources.when_to_search
+import it.sagratime.core.datetime.toZonedDate
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.hours
@@ -56,8 +56,12 @@ fun DateSelectionGroup(
 
         val datePickerState =
             rememberDateRangePickerState(
-                initialSelectedStartDateMillis = state.selectedDateRange.start.toEpochMillis(),
-                initialSelectedEndDateMillis = state.selectedDateRange.end.toEpochMillis(),
+                initialSelectedStartDateMillis =
+                    state.selectedDateRange.start.date
+                        .toEpochMillis(),
+                initialSelectedEndDateMillis =
+                    state.selectedDateRange.end.date
+                        .toEpochMillis(),
                 selectableDates = TodayOnwards,
             )
 
@@ -71,13 +75,11 @@ fun DateSelectionGroup(
                                     start =
                                         Instant
                                             .fromEpochMilliseconds(start)
-                                            .toLocalDateTime(TimeZone.currentSystemDefault())
-                                            .toLocalDate(),
+                                            .toZonedDate(TimeZone.currentSystemDefault()),
                                     end =
                                         Instant
                                             .fromEpochMilliseconds(end)
-                                            .toLocalDateTime(TimeZone.currentSystemDefault())
-                                            .toLocalDate(),
+                                            .toZonedDate(TimeZone.currentSystemDefault()),
                                 ),
                             ),
                         )

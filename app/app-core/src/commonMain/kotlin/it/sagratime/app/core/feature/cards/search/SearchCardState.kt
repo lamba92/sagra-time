@@ -6,10 +6,11 @@ import it.sagratime.app.core.feature.cards.search.SearchCardState.Companion.INIT
 import it.sagratime.app.core.feature.cards.search.components.toLocalDate
 import it.sagratime.core.data.EventType
 import it.sagratime.core.data.Location
+import it.sagratime.core.datetime.ZonedDate
+import it.sagratime.core.datetime.withTimeZone
 import it.sagratime.core.units.Length
 import it.sagratime.core.units.MeasurementSystem
 import it.sagratime.core.units.kilometers
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
@@ -68,8 +69,8 @@ data class SearchCardState(
 
     @Serializable
     data class DateRangeSelection(
-        val start: LocalDate,
-        val end: LocalDate,
+        val start: ZonedDate,
+        val end: ZonedDate,
     ) {
         companion object {
             fun nextMonth(): DateRangeSelection {
@@ -77,8 +78,16 @@ data class SearchCardState(
                 val nextMonth = now + 30.days
 
                 return DateRangeSelection(
-                    start = now.toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate(),
-                    end = nextMonth.toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate(),
+                    start =
+                        now
+                            .toLocalDateTime(TimeZone.currentSystemDefault())
+                            .toLocalDate()
+                            .withTimeZone(TimeZone.currentSystemDefault()),
+                    end =
+                        nextMonth
+                            .toLocalDateTime(TimeZone.currentSystemDefault())
+                            .toLocalDate()
+                            .withTimeZone(TimeZone.currentSystemDefault()),
                 )
             }
         }

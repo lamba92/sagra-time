@@ -6,12 +6,8 @@ import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.unit.dp
-
-private data class ChipPair(
-    val container: Color,
-    val label: Color,
-)
 
 /**
  * Produce lively chip colors from a base hue without looking washed out.
@@ -31,22 +27,14 @@ fun chipColorsFrom(
     val textDarken = 0.35f * (1f - vividness) + 0.12f * vividness // ~0.12 at vividness=1
 
     return if (!dark) {
-        val bg =
-            androidx.compose.ui.graphics
-                .lerp(base, Color.White, towardWhite)
-        val fg =
-            androidx.compose.ui.graphics
-                .lerp(base, Color.Black, textDarken)
+        val bg = lerp(base, Color.White, towardWhite)
+        val fg = lerp(base, Color.Black, textDarken)
         bg to fg
     } else {
         val towardBlack = towardWhite
         val textLighten = 0.70f * (1f - vividness) + 0.25f * vividness // lighter text on dark
-        val bg =
-            androidx.compose.ui.graphics
-                .lerp(base, Color.Black, towardBlack)
-        val fg =
-            androidx.compose.ui.graphics
-                .lerp(base, Color.White, textLighten)
+        val bg = lerp(base, Color.Black, towardBlack)
+        val fg = lerp(base, Color.White, textLighten)
         bg to fg
     }
 }
@@ -54,6 +42,7 @@ fun chipColorsFrom(
 @Composable
 fun PastelChip(
     index: Int,
+    vividness: Float = 1f,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     label: @Composable () -> Unit,
@@ -66,6 +55,7 @@ fun PastelChip(
                 1 -> SagraTimeTheme.colorScheme.secondary
                 else -> SagraTimeTheme.colorScheme.tertiary
             },
+        vividness = vividness,
         onClick = onClick,
         label = label,
     )
@@ -75,10 +65,11 @@ fun PastelChip(
 fun PastelChip(
     modifier: Modifier = Modifier,
     color: Color,
+    vividness: Float = 1f,
     onClick: () -> Unit = {},
     label: @Composable () -> Unit,
 ) {
-    val (bg, fg) = chipColorsFrom(color)
+    val (bg, fg) = chipColorsFrom(color, vividness)
     AssistChip(
         modifier = modifier,
         onClick = onClick,

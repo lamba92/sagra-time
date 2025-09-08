@@ -2,11 +2,10 @@
 
 package it.sagratime.app.core.feature.cards.search.components
 
-import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -52,22 +51,19 @@ fun SearchCard(
     SagraTimeCard(modifier = modifier) {
         Column(
             modifier = Modifier.padding(SagraTimeTheme.metrics.cards.innerPaddings),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             SearchCardTitle()
-            Spacer(modifier = Modifier.height(12.dp))
             SearchCardTextField(
                 state = state,
                 onEvent = onEvent,
             )
-            Spacer(modifier = Modifier.height(12.dp))
+            AnimatedVisibility(state.isAdvancedSearch) {
+                LocationTextField(state = state, onEvent = onEvent)
+            }
 
-            AnimatedContent(targetState = state.isAdvancedSearch) { isAdvancedSearch ->
-                if (isAdvancedSearch) {
-                    Column {
-                        LocationTextField(state, onEvent)
-                        Spacer(modifier = Modifier.height(12.dp))
-                    }
-                }
+            AnimatedVisibility(state.isAdvancedSearch) {
+                DistanceSlider(state = state, onEvent = onEvent)
             }
 
             SearchOptionsRow(
@@ -76,13 +72,10 @@ fun SearchCard(
                 modifier = modifier,
             )
 
-            PopularSearchesRow(state = state.popularSearches, onEvent = onEvent)
-            AnimatedContent(targetState = state.isAdvancedSearch) { isAdvancedSearch ->
-                Spacer(modifier = Modifier.height(12.dp))
-                if (isAdvancedSearch) {
-                    AdvancedSearchCardContent(state = state, onEvent = onEvent)
-                }
+            AnimatedVisibility(state.isAdvancedSearch) {
+                AdvancedSearchCardContent(state = state, onEvent = onEvent)
             }
+            PopularSearchesRow(state = state.popularSearches, onEvent = onEvent)
 
             SearchActionsRow(
                 modifier = Modifier.fillMaxWidth(),

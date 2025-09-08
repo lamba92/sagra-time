@@ -1,5 +1,6 @@
 package it.sagratime.app.core.feature.router.components
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,10 +24,12 @@ fun SagraTimeNavHost(
     modifier: Modifier = Modifier,
     route: SagraTimeRoute,
 ) {
-    when (route) {
-        SagraTimeRoute.Home -> SagraTimeHome(modifier)
-        is SagraTimeRoute.Sagra -> TODO()
-        is SagraTimeRoute.EventType -> TODO()
-        is SagraTimeRoute.Region -> TODO()
+    AnimatedContent(route) { route ->
+        when (route) {
+            SagraTimeRoute.Home -> SagraTimeHome(modifier)
+            is SagraTimeRoute.Sagra -> TODO()
+            is SagraTimeRoute.EventType -> TODO()
+            is SagraTimeRoute.Region -> TODO()
+        }
     }
 }

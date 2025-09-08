@@ -5,10 +5,11 @@ package it.sagratime.app.core.feature.cards.search
 import androidx.lifecycle.viewModelScope
 import it.sagratime.app.core.MVIViewModel
 import it.sagratime.app.core.combine
+import it.sagratime.app.core.repository.EventRepository
 import it.sagratime.app.core.repository.LocaleService
 import it.sagratime.app.core.repository.LocationService
 import it.sagratime.app.core.repository.LocationServiceStatus
-import it.sagratime.app.core.repository.SagreRepository
+import it.sagratime.core.data.SearchEventQuery
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,8 +25,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SearchCardViewModel(
-    private val sagreRepository: SagreRepository,
-    localeService: LocaleService,
+    private val eventRepository: EventRepository,
+    private val localeService: LocaleService,
     private val locationService: LocationService,
 ) : MVIViewModel<SearchCardState, SearchCardEffect, SearchCardEvent>() {
     private val _state: MutableStateFlow<SearchCardState> =
@@ -53,7 +54,7 @@ class SearchCardViewModel(
         searchAutocompleteQueue
             .consumeAsFlow()
             .combine(localeService.currentLocale)
-            .mapLatest { (query, locale) -> sagreRepository.searchCompletionQuery(query, locale) }
+            .mapLatest { (query, locale) -> eventRepository.searchCompletionQuery(query, locale) }
             .onEach { tips ->
                 _state.update {
                     it.copy(
@@ -65,7 +66,7 @@ class SearchCardViewModel(
 
         localeService
             .currentLocale
-            .map { locale -> sagreRepository.getPopularSearches(locale) }
+            .map { locale -> eventRepository.getPopularSearches(locale) }
             .map { searches -> SearchCardState.PopularSearches.Loaded(searches) }
             .map { searches -> _state.update { it.copy(popularSearches = searches) } }
             .launchIn(viewModelScope)
@@ -173,11 +174,15 @@ class SearchCardViewModel(
         val currentState = state
         _effects.emit(
             SearchCardEffect.Search(
-                query = currentState.value.query,
-                location = currentState.value.selectedLocation,
-                radius = currentState.value.searchRadius,
-                types = currentState.value.selectedTypes,
-                dateRange = currentState.value.selectedDateRange,
+                SearchEventQuery(
+                    queryString = currentState.value.query,
+                    location = currentState.value.selectedLocation?.geoCoordinates ?: locationService.getIpGeoCoordinates(),
+                    radius = currentState.value.searchRadius,
+                    types = currentState.value.selectedTypes,
+                    from = currentState.value.selectedDateRange.start,
+                    to = currentState.value.selectedDateRange.end,
+                    locale = localeService.currentLocale.value,
+                ),
             ),
         )
     }

@@ -75,6 +75,10 @@ fun ButtonDefaults.disabledColors(): ButtonColors =
     )
 
 object SagraTimeTheme {
+    val isDark
+        @Composable
+        get() = LocalIsSystemDarkProvider.current.isDark
+
     val typography
         @Composable @ReadOnlyComposable
         get() = MaterialTheme.typography

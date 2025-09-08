@@ -41,4 +41,6 @@ object MockLocationService : LocationService {
             )
         }
     }
+
+    override suspend fun getIpGeoCoordinates() = GeoCoordinates(0.0, 0.0)
 }
