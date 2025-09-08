@@ -63,7 +63,7 @@ fun Event.sameDayLocalizedString() = "${from.datetime.day} ${from.datetime.month
 
 @Composable
 fun Event.sameMonthLocalizedString() =
-    "${from.datetime.day} - ${from.datetime.month.name} ${from.datetime.month.localized()} ${until.datetime.year}"
+    "${from.datetime.day} - ${until.datetime.day} ${from.datetime.month.localized()} ${until.datetime.year}"
 
 @Composable
 fun Event.sameYearLocalizedString() =
