@@ -17,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import it.sagratime.app.core.components.SagraTimeTheme
 import it.sagratime.app.core.components.WithLocalTypography
@@ -44,6 +45,7 @@ fun DateSelectionGroup(
     state: SearchCardState,
     onEvent: (SearchCardEvent) -> Unit,
     modifier: Modifier = Modifier,
+    datePickerHeight: Dp = 440.dp,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -96,7 +98,7 @@ fun DateSelectionGroup(
                 modifier =
                     Modifier
                         .fillMaxWidth()
-                        .height(440.dp)
+                        .height(datePickerHeight)
                         .clip(RoundedCornerShape(SagraTimeTheme.shapes.medium.topStart)),
                 state = datePickerState,
             )

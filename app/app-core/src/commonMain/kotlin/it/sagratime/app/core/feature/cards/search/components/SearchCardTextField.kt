@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import it.sagratime.app.core.feature.cards.search.SearchCardEvent
 import it.sagratime.app.core.feature.cards.search.SearchCardState
@@ -37,19 +38,21 @@ import org.jetbrains.compose.resources.stringResource
 fun SearchCardTextField(
     state: SearchCardState,
     onEvent: (SearchCardEvent) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var isFocused by remember { mutableStateOf(false) }
     val expanded = isFocused && state.queryTips.isNotEmpty()
     val focusManager = LocalFocusManager.current
     ExposedDropdownMenuBox(
+        modifier = modifier,
         expanded = expanded,
         onExpandedChange = { },
     ) {
         OutlinedTextField(
             modifier =
                 Modifier
-                    .onFocusChanged { isFocused = it.isFocused || it.hasFocus }
                     .fillMaxWidth()
+                    .onFocusChanged { isFocused = it.isFocused || it.hasFocus }
                     .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable),
             value = state.query,
             onValueChange = { onEvent(SearchCardEvent.QueryChanged(it)) },
@@ -74,7 +77,13 @@ fun SearchCardTextField(
                     )
                 }
             },
-            placeholder = { Text(stringResource(Res.string.search_card_placeholder)) },
+            placeholder = {
+                Text(
+                    text = stringResource(Res.string.search_card_placeholder),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            },
         )
 
         ExposedDropdownMenu(

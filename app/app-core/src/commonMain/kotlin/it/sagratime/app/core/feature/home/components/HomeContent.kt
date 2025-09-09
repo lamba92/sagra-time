@@ -18,6 +18,7 @@ import it.sagratime.app.core.feature.cards.search.components.SearchCard
 import it.sagratime.app.core.feature.cards.welcome.components.WelcomeCard
 import it.sagratime.app.core.feature.cards.whatisasagra.components.WhatIsASagraCard
 import it.sagratime.app.core.feature.home.HomeEvent
+import it.sagratime.app.core.feature.home.HomeEvent.SearchEffect
 import it.sagratime.app.core.feature.home.HomeState
 
 @Composable
@@ -27,17 +28,6 @@ fun HomeContent(
     state: HomeState,
     onEvent: (HomeEvent) -> Unit,
     scrollState: LazyListState,
-) {
-    HomeContentSmallScreen(modifier, innerPaddings, scrollState, state, onEvent)
-}
-
-@Composable
-fun HomeContentSmallScreen(
-    modifier: Modifier = Modifier,
-    innerPaddings: PaddingValues,
-    scrollState: LazyListState,
-    state: HomeState,
-    onEvent: (HomeEvent) -> Unit,
 ) {
     LazyColumn(
         modifier
@@ -62,7 +52,7 @@ fun HomeContentSmallScreen(
 
         item {
             SearchCard(
-                onEffect = { onEvent(HomeEvent.SearchEffect(it)) },
+                onEffect = { onEvent(SearchEffect(it)) },
             )
         }
         if (state == HomeState.Default) {

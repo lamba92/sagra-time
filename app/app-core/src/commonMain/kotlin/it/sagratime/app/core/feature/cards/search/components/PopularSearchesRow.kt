@@ -4,6 +4,7 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +22,7 @@ fun PopularSearchesRow(
     modifier: Modifier = Modifier,
     state: SearchCardState.PopularSearches,
     onEvent: (SearchCardEvent.PopularSearchClick) -> Unit,
-    scrollState: ScrollState,
+    scrollState: ScrollState = rememberScrollState(),
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),

@@ -26,8 +26,8 @@ fun SagraTimeApp(diModules: List<Module> = DEFAULT_MODULES) {
             ) {
                 val screenType =
                     when {
-                        maxWidth > 1200.dp -> ScreenType.LARGE
-                        maxWidth > 800.dp -> ScreenType.MEDIUM
+                        maxWidth > 1000.dp -> ScreenType.LARGE
+                        maxWidth > 600.dp -> ScreenType.MEDIUM
                         else -> ScreenType.SMALL
                     }
                 SagraTimeTheme(screenType) {

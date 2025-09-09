@@ -2,7 +2,6 @@ package it.sagratime.app.core.feature.cards.search.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -22,7 +21,7 @@ fun SearchActionsRow(
     onEvent: (SearchCardEvent) -> Unit,
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
