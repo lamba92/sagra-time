@@ -6,6 +6,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
@@ -35,6 +36,7 @@ val LocalIsSystemDarkProvider =
 
 @Composable
 fun SagraTimeTheme(
+    screenType: ScreenType,
     isDark: Boolean = LocalIsSystemDarkProvider.current.isDark,
     seedColor: Color = Color.Yellow,
     typography: Typography = InterTypography(),
@@ -48,11 +50,15 @@ fun SagraTimeTheme(
             tertiary = Color.Red,
             isDark = isDark,
         )
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = typography,
-        content = content,
-    )
+    CompositionLocalProvider(
+        LocalMetrics provides SagraTimeMetrics(screenType = screenType),
+    ) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = typography,
+            content = content,
+        )
+    }
 }
 
 @Composable
@@ -100,12 +106,18 @@ object SagraTimeTheme {
         get() = LocalMetrics.current
 }
 
+enum class ScreenType {
+    SMALL, MEDIUM, LARGE
+}
+
 val LocalMetrics =
     staticCompositionLocalOf { SagraTimeMetrics.DEFAULT }
 
 data class SagraTimeMetrics(
     val cards: CardsMetrics = CardsMetrics.DEFAULT,
+    val screenType: ScreenType = ScreenType.SMALL,
 ) {
+
     companion object {
         val DEFAULT = SagraTimeMetrics()
     }
