@@ -107,7 +107,9 @@ object SagraTimeTheme {
 }
 
 enum class ScreenType {
-    SMALL, MEDIUM, LARGE
+    SMALL,
+    MEDIUM,
+    LARGE,
 }
 
 val LocalMetrics =
@@ -117,7 +119,6 @@ data class SagraTimeMetrics(
     val cards: CardsMetrics = CardsMetrics.DEFAULT,
     val screenType: ScreenType = ScreenType.SMALL,
 ) {
-
     companion object {
         val DEFAULT = SagraTimeMetrics()
     }

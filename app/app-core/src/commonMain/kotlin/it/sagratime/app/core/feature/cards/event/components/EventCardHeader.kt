@@ -16,13 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil3.compose.LocalPlatformContext
-import coil3.request.ImageRequest
-import coil3.request.crossfade
-import coil3.size.Scale
-import it.sagratime.app.core.components.Image
 import it.sagratime.app.core.components.PastelChip
 import it.sagratime.app.core.components.SagraTimeTheme
 import it.sagratime.app.core.components.scrimBrush
@@ -40,17 +34,10 @@ fun EventCardHeader(
                 .height(250.dp)
                 .fillMaxWidth(),
     ) {
-        Image(
+        EventCardBackground(
+            backgroundUrl = event.imageUrl,
+            fallback = event.type.placeholderImage(),
             modifier = Modifier.matchParentSize(),
-            model =
-                ImageRequest
-                    .Builder(LocalPlatformContext.current)
-                    .data(event.imageUrl ?: event.type.placeholderImage())
-                    .crossfade(true)
-                    .scale(Scale.FIT)
-                    .build(),
-            contentDescription = "event image",
-            contentScale = ContentScale.Crop,
         )
         Box(
             modifier =

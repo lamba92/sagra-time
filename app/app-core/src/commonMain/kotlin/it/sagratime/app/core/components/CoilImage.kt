@@ -30,7 +30,7 @@ fun interface CoilComponentProvider {
 }
 
 @Composable
-fun Image(
+fun CoilImage(
     model: Any?,
     contentDescription: String?,
     modifier: Modifier = Modifier,

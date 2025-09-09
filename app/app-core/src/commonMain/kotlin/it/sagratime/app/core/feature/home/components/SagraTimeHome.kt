@@ -3,6 +3,8 @@
 package it.sagratime.app.core.feature.home.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -99,7 +101,7 @@ fun SagraTimeHome(
             )
         },
         content = { innerPaddings ->
-            HomeContentMobile(
+            HomeContent(
                 innerPaddings = innerPaddings,
                 state = state,
                 onEvent = onEvent,
@@ -113,7 +115,11 @@ fun SagraTimeHome(
             val isScrollToTopButtonVisible =
                 state is HomeState.Searching && !isTopReached
 
-            AnimatedVisibility(isScrollToTopButtonVisible) {
+            AnimatedVisibility(
+                visible = isScrollToTopButtonVisible,
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
                 val scope = rememberCoroutineScope()
                 FloatingActionButton(
                     onClick = { scope.launch { scrollState.animateScrollToItem(0) } },

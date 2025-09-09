@@ -21,12 +21,23 @@ import it.sagratime.app.core.feature.home.HomeEvent
 import it.sagratime.app.core.feature.home.HomeState
 
 @Composable
-fun HomeContentMobile(
+fun HomeContent(
     innerPaddings: PaddingValues,
     modifier: Modifier = Modifier,
     state: HomeState,
     onEvent: (HomeEvent) -> Unit,
     scrollState: LazyListState,
+) {
+    HomeContentSmallScreen(modifier, innerPaddings, scrollState, state, onEvent)
+}
+
+@Composable
+fun HomeContentSmallScreen(
+    modifier: Modifier = Modifier,
+    innerPaddings: PaddingValues,
+    scrollState: LazyListState,
+    state: HomeState,
+    onEvent: (HomeEvent) -> Unit,
 ) {
     LazyColumn(
         modifier
@@ -42,7 +53,10 @@ fun HomeContentMobile(
 
         if (state == HomeState.Default) {
             item {
-                WelcomeCard(modifier = Modifier.animateItem())
+                WelcomeCard(
+                    modifier =
+                        Modifier.animateItem(),
+                )
             }
         }
 

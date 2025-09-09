@@ -26,8 +26,14 @@ import it.sagratime.app_core.generated.resources.november_short
 import it.sagratime.app_core.generated.resources.october
 import it.sagratime.app_core.generated.resources.october_short
 import it.sagratime.app_core.generated.resources.one_day
+import it.sagratime.app_core.generated.resources.other_placeholder_dark
+import it.sagratime.app_core.generated.resources.other_placeholder_light
+import it.sagratime.app_core.generated.resources.sagra_placeholder_dark
+import it.sagratime.app_core.generated.resources.sagra_placeholder_light
 import it.sagratime.app_core.generated.resources.september
 import it.sagratime.app_core.generated.resources.september_short
+import it.sagratime.app_core.generated.resources.town_festival_placeholder_dark
+import it.sagratime.app_core.generated.resources.town_festival_placeholder_light
 import it.sagratime.app_core.generated.resources.x_days
 import it.sagratime.core.data.Event
 import it.sagratime.core.data.EventType
@@ -122,7 +128,7 @@ fun Month.localizedShort(capitalized: Boolean = true): String {
 }
 
 @Composable
-fun EventType.placeholderImage(): String =
+fun EventType.placeholderImage() =
     when (this) {
         EventType.Sagra -> sagraPlaceholderImage()
         EventType.TownFestival -> townFestivalPlaceholderImage()
@@ -130,22 +136,22 @@ fun EventType.placeholderImage(): String =
     }
 
 @Composable
-fun sagraPlaceholderImage(): String =
+fun sagraPlaceholderImage() =
     when {
-        SagraTimeTheme.isDark -> Res.getUri("files/images/sagra_placeholder_dark.png")
-        else -> Res.getUri("files/images/sagra_placeholder_light.png")
+        SagraTimeTheme.isDark -> Res.drawable.sagra_placeholder_dark
+        else -> Res.drawable.sagra_placeholder_light
     }
 
 @Composable
-fun townFestivalPlaceholderImage(): String =
+fun townFestivalPlaceholderImage() =
     when {
-        SagraTimeTheme.isDark -> Res.getUri("files/images/town_festival_placeholder_dark.png")
-        else -> Res.getUri("files/images/town_festival_placeholder_light.png")
+        SagraTimeTheme.isDark -> Res.drawable.town_festival_placeholder_dark
+        else -> Res.drawable.town_festival_placeholder_light
     }
 
 @Composable
-fun otherPlaceholderImage(): String =
+fun otherPlaceholderImage() =
     when {
-        SagraTimeTheme.isDark -> Res.getUri("files/images/other_placeholder_dark.png")
-        else -> Res.getUri("files/images/other_placeholder_light.png")
+        SagraTimeTheme.isDark -> Res.drawable.other_placeholder_dark
+        else -> Res.drawable.other_placeholder_light
     }

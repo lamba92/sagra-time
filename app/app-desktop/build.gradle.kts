@@ -22,8 +22,9 @@ application {
 }
 
 dependencies {
-    implementation(projects.app.appCore)
     implementation(libs.bundles.compose.desktop)
-    implementation(libs.kotlinx.coroutines.swing)
     implementation(libs.jvm.system.theme.detector)
+    implementation(libs.kotlinx.coroutines.swing)
+    implementation(libs.logback.classic)
+    implementation(projects.app.appCore)
 }
