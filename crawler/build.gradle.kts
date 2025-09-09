@@ -22,6 +22,7 @@ docker {
             files {
                 from(tasks.installDist)
                 from("Dockerfile")
+                from("requirements.txt")
             }
         }
     }
