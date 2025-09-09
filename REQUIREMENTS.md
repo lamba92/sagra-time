@@ -3,9 +3,22 @@ SagraTime is a bot for searching for info about Sagre in Italy and serving them 
 
 ## Search
 - by name
-- by food
+- by food/tag
 - filter by date
 - by distance from location
+- event type
+
+## What to display
+- home page with: 
+  - info about the website
+  - search
+  - per region statistics
+- search page with:
+  - search options
+  - results
+  - a map
+- regions page with:
+  - list of regions and their events
 
 ## Data
 - location
@@ -17,15 +30,12 @@ SagraTime is a bot for searching for info about Sagre in Italy and serving them 
   - start/end dates (and possibly time)
 - small description
 - link to official whatever
-- tag (not right now)
+- tag (not right now?)
   - let ai search already existing ones and let it decide if to create new ones
 - type:
-  - gastro
-  - eno
-  - agricola
-  - folklore
-  - marinara
-  - festa paese
+  - sagra
+  - town fest
+  - other
 
 ## Infra Architecture
 - embedded database for storage
