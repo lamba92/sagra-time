@@ -34,7 +34,6 @@ object MockLocationService : LocationService {
         delay(Random.Default.nextInt(1, 2).seconds)
         return List(5) { index ->
             Location(
-                locale = locale,
                 geoCoordinates = GeoCoordinates(0.0, 0.0),
                 cityName = "City $index",
                 region = ItalianRegion.entries[index],

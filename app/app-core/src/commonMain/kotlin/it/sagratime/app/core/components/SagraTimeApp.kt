@@ -17,12 +17,15 @@ val DEFAULT_MODULES =
     )
 
 @Composable
-fun SagraTimeApp(diModules: List<Module> = DEFAULT_MODULES) {
+fun SagraTimeApp(
+    modifier: Modifier = Modifier,
+    diModules: List<Module> = DEFAULT_MODULES,
+) {
     KoinApplication(
         application = { modules(diModules) },
         content = {
             BoxWithConstraints(
-                modifier = Modifier.fillMaxSize(),
+                modifier = modifier.fillMaxSize(),
             ) {
                 val screenType =
                     when {

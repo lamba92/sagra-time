@@ -5,6 +5,12 @@ plugins {
     `convention-docker`
 }
 
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xwhen-guards")
+    }
+}
+
 application {
     mainClass = "it.sagratime.server.MainKt"
 }

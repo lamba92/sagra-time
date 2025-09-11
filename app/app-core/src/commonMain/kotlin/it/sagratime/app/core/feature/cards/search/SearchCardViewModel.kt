@@ -9,7 +9,9 @@ import it.sagratime.app.core.repository.EventRepository
 import it.sagratime.app.core.repository.LocaleService
 import it.sagratime.app.core.repository.LocationService
 import it.sagratime.app.core.repository.LocationServiceStatus
-import it.sagratime.core.data.SearchEventQuery
+import it.sagratime.core.data.DateRange
+import it.sagratime.core.data.EventSearchQuery
+import it.sagratime.core.data.LocationQuery
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -174,13 +176,21 @@ class SearchCardViewModel(
         val currentState = state
         _effects.emit(
             SearchCardEffect.Search(
-                SearchEventQuery(
+                EventSearchQuery(
                     queryString = currentState.value.query,
-                    location = currentState.value.selectedLocation?.geoCoordinates ?: locationService.getIpGeoCoordinates(),
-                    radius = currentState.value.searchRadius,
+                    location =
+                        LocationQuery(
+                            from =
+                                currentState.value.selectedLocation?.geoCoordinates
+                                    ?: locationService.getIpGeoCoordinates(),
+                            radius = currentState.value.searchRadius,
+                        ),
                     types = currentState.value.selectedTypes,
-                    from = currentState.value.selectedDateRange.start,
-                    to = currentState.value.selectedDateRange.end,
+                    dateRange =
+                        DateRange(
+                            from = currentState.value.selectedDateRange.start,
+                            to = currentState.value.selectedDateRange.end,
+                        ),
                     locale = localeService.currentLocale.value,
                 ),
             ),

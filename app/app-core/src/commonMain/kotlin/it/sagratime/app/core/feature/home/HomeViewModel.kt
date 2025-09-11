@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import it.sagratime.app.core.MVIViewModel
 import it.sagratime.app.core.feature.cards.search.SearchCardEffect
 import it.sagratime.app.core.repository.EventRepository
-import it.sagratime.core.data.SearchEventQuery
+import it.sagratime.core.data.EventSearchQuery
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +24,7 @@ class HomeViewModel(
     private val _state: MutableStateFlow<HomeState> = MutableStateFlow(HomeState.Default)
     override val state: StateFlow<HomeState> = _state.asStateFlow()
 
-    private val searchQueue = Channel<SearchEventQuery>()
+    private val searchQueue = Channel<EventSearchQuery>()
 
     init {
         searchQueue
@@ -52,7 +52,7 @@ class HomeViewModel(
         }
     }
 
-    private suspend fun initiateSearch(query: SearchEventQuery) {
+    private suspend fun initiateSearch(query: EventSearchQuery) {
         _state.value = HomeState.Searching.Loading
         searchQueue.send(query)
     }

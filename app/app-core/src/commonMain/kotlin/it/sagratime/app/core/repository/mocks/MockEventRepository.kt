@@ -6,12 +6,12 @@ import it.sagratime.app.core.repository.EventRepository
 import it.sagratime.app.core.repository.SagraStatistics
 import it.sagratime.core.data.Event
 import it.sagratime.core.data.EventId
+import it.sagratime.core.data.EventSearchQuery
 import it.sagratime.core.data.EventType
 import it.sagratime.core.data.GeoCoordinates
 import it.sagratime.core.data.ItalianRegion
 import it.sagratime.core.data.Locale
 import it.sagratime.core.data.Location
-import it.sagratime.core.data.SearchEventQuery
 import it.sagratime.core.datetime.toZonedDateTime
 import kotlinx.coroutines.delay
 import kotlinx.datetime.TimeZone
@@ -55,7 +55,7 @@ object MockEventRepository : EventRepository {
         )
     }
 
-    override suspend fun search(query: SearchEventQuery) =
+    override suspend fun search(query: EventSearchQuery) =
         List(10) {
             val from = Clock.System.now()
             val until = from + Random.Default.nextInt(0, 3).days
@@ -74,7 +74,6 @@ object MockEventRepository : EventRepository {
                         "chiantigiano.",
                 location =
                     Location(
-                        locale = Locale.IT,
                         geoCoordinates = GeoCoordinates(0.0, 0.0),
                         cityName = "City $it",
                         region = ItalianRegion.entries.random(random),

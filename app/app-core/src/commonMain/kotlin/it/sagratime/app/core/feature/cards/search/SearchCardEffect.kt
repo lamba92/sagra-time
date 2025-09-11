@@ -1,6 +1,6 @@
 package it.sagratime.app.core.feature.cards.search
 
-import it.sagratime.core.data.SearchEventQuery
+import it.sagratime.core.data.EventSearchQuery
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
 
@@ -12,6 +12,6 @@ sealed interface SearchCardEffect {
     @Serializable
     @JvmInline
     value class Search(
-        val query: SearchEventQuery,
+        val query: EventSearchQuery,
     ) : SearchCardEffect
 }

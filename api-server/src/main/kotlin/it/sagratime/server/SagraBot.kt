@@ -9,9 +9,9 @@ import io.ktor.server.auth.basic
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.routing.routing
 import it.sagratime.server.routes.apiRoutes
-import it.sagratime.server.service.SagraProvider
+import it.sagratime.server.service.EventProvider
 
-fun Application.SagraTime(sagraProvider: SagraProvider) {
+fun Application.SagraTime(eventProvider: EventProvider) {
     install(ContentNegotiation) {
         json()
         xml()
@@ -29,6 +29,6 @@ fun Application.SagraTime(sagraProvider: SagraProvider) {
     }
 
     routing {
-        apiRoutes(sagraProvider)
+        apiRoutes(eventProvider)
     }
 }

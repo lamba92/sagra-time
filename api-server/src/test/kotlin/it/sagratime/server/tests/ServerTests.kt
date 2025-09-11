@@ -20,16 +20,19 @@ import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.testing.ApplicationTestBuilder
 import io.ktor.server.testing.testApplication
 import it.sagratime.core.data.Event
+import it.sagratime.core.data.EventId
+import it.sagratime.core.data.EventType
 import it.sagratime.core.data.GeoCoordinates
 import it.sagratime.core.data.ItalianRegion
 import it.sagratime.core.data.Location
 import it.sagratime.core.data.Page
+import it.sagratime.core.datetime.toZonedDateTime
 import it.sagratime.server.ADMIN_PASSWORD
 import it.sagratime.server.ADMIN_USERNAME
 import it.sagratime.server.DB_PATH
 import it.sagratime.server.SagraTime
 import it.sagratime.server.getDocumentStoreSagraProvider
-import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
 import org.junit.jupiter.api.BeforeEach
 import kotlin.io.path.ExperimentalPathApi
 import kotlin.io.path.Path
@@ -94,14 +97,17 @@ fun testSagraApplication(
 
 val TestEvent =
     Event(
+        id = EventId("testId"),
         name = "test",
         food = listOf("test1", "test2"),
-        from = LocalDateTime.parse(Clock.System.now().toString().removeSuffix("Z")),
-        until = LocalDateTime.parse((Clock.System.now() + 3.days).toString().removeSuffix("Z")),
+        from = Clock.System.now().toZonedDateTime(TimeZone.currentSystemDefault()),
+        until = (Clock.System.now() + 3.days).toZonedDateTime(TimeZone.currentSystemDefault()),
         description = "test",
+        type = EventType.Sagra,
+        sourceLinks = listOf("a", "b"),
         location = Location(
             geoCoordinates = GeoCoordinates(1.0, 2.0),
             cityName = "test",
             region = ItalianRegion.Abruzzo
-        )
+        ),
     )

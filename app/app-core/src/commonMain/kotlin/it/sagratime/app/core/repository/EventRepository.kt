@@ -1,8 +1,8 @@
 package it.sagratime.app.core.repository
 
 import it.sagratime.core.data.Event
+import it.sagratime.core.data.EventSearchQuery
 import it.sagratime.core.data.Locale
-import it.sagratime.core.data.SearchEventQuery
 import kotlinx.serialization.Serializable
 
 interface EventRepository {
@@ -15,7 +15,7 @@ interface EventRepository {
         locale: Locale,
     ): List<String>
 
-    suspend fun search(query: SearchEventQuery): List<Event>
+    suspend fun search(query: EventSearchQuery): List<Event>
 }
 
 @Serializable
