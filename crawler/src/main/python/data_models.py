@@ -17,3 +17,11 @@ class Sagra(BaseModel):
 class SagraList(BaseModel):
     """A list of "sagre" found on a page."""
     sagre: List[Sagra] = Field(description="A list of sagre, feste, or eventi found in the text.")
+
+class FoodList(BaseModel):
+    """A list of food found associated to a sagra."""
+    foods: List[str] = Field(description="A list of normalized food names, like ['arrosticini', 'porchetta', 'pizza fritta'].")
+
+class TagList(BaseModel):
+    """A list of tags found associated to a sagra."""
+    tags: List[str] = Field(description="A list of short, relevant tags in Italian, like ['musica dal vivo', 'cultura'].")
