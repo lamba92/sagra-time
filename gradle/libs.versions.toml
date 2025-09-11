@@ -33,7 +33,7 @@ nexus-publish-plugin = "2.0.0"
 node-gradle = "7.1.0"
 xmlutil = "0.91.2"
 compose-hot-reload = "1.0.0-beta05"
-jvm-system-theme-detector = "3.6"
+jvm-system-theme-detector = "3.9.1"
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
