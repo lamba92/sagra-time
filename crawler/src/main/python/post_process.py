@@ -50,38 +50,33 @@ def normalize_date(date_str: str) -> Optional[Tuple[str, str]]:
     print(f"[Warning] Could not parse date: {date_str}")
     return None
 
-
 def clean_name(name: str, primary_location: Optional[str] = None) -> str:
-    """Cleans the event name by removing edition numbers, location suffixes, and other noise."""
     if not name or name.lower() == 'n/a':
         return ""
 
-    # A list of regex patterns to remove common noise from event names.
-    noise_patterns = [
-        # Matches edition numbers like "38ª edizione", "47esima", or "VII Edizione"
-        r'\s*\b(\d{1,2}(ª|°|a|o|esima)?|([IVXLCDM]+))\s*(edizione)?\b',
-        # Matches the literal string "(sagra)"
-        r'\s*\(sagra\)\s*'
-    ]
-
-    for pattern in noise_patterns:
-        name = re.sub(pattern, '', name, flags=re.IGNORECASE)
-
-    # Remove the primary location if it's used as a suffix, like "Event Name - Location".
+    # Normalize apostrophes in location (looking at you, L'Aquila...)
     if primary_location:
-        location_suffix_pattern = r'\s*[-–]\s*' + re.escape(primary_location) + '$'
+        primary_location_normalized = re.sub(r"[’']", "'", primary_location)
+        primary_location_escaped = re.escape(primary_location_normalized)
+
+        # Allow multiple dash types
+        location_suffix_pattern = r'\s*[-–—−]\s*' + primary_location_escaped + r'$'
+
         name = re.sub(location_suffix_pattern, '', name, flags=re.IGNORECASE)
 
-    name = re.sub(r'\s*-\s*$', '', name)
+    # Clean trailing dash
+    name = re.sub(r'\s*[-–—−]\s*$', '', name)
 
-    return name.strip().title()
+    result = name.strip().title()
+    return result
+
 
 def get_primary_location(location: str) -> str:
     """Extracts the primary city/town from the location string."""
     if not location or location.lower() == 'n/a':
         return ""
-    # Take the part before the first comma or parenthesis
-    match = re.match(r"^([^,(]+)", location)
+    # Take the part before the first comma, parenthesis or dash
+    match = re.match(r"^([^,(–—−-]+)", location)
     if match:
         return match.group(1).strip()
     return location.strip()
@@ -96,6 +91,8 @@ def process_sagre(sagre_data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     for sagra in sagre_data:
         # 1. Normalize and Clean Data
         primary_location = get_primary_location(sagra.get('location', ''))
+        # still looking at you, L'Aquila
+        primary_location = re.sub(r"[’']", "'", primary_location)
         cleaned_sagra_name = clean_name(sagra.get('name', ''), primary_location)
         start_date_info = normalize_date(sagra.get('start_date', ''))
         if not start_date_info:
