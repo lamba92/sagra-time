@@ -10,6 +10,8 @@ jobs:
     name: Tests / Android
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - uses: actions/setup-java@v4
         with:
           distribution: adopt
@@ -38,6 +40,8 @@ jobs:
     name: Linting
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - uses: actions/setup-java@v4
         with:
           distribution: adopt
@@ -54,6 +58,8 @@ jobs:
     name: Tests / ${{ matrix.os == 'ubuntu' && 'Ubuntu' || matrix.os == 'windows' && 'Windows' || matrix.os == 'macos' && 'macOs' }}
     steps:
     - uses: actions/checkout@v4
+      with:
+        submodules: true
     - uses: actions/setup-java@v4
       with:
         distribution: corretto
@@ -73,6 +79,8 @@ jobs:
           - 5000:5000
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - uses: actions/setup-java@v4
         with:
           distribution: corretto
@@ -95,6 +103,8 @@ jobs:
     name: Publishing / ${{ matrix.os == 'ubuntu' && 'Ubuntu' || matrix.os == 'windows' && 'Windows' || matrix.os == 'macos' && 'macOs' }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - uses: gradle/actions/setup-gradle@v4
       - run: chmod +x gradlew
       - uses: actions/setup-java@v4
