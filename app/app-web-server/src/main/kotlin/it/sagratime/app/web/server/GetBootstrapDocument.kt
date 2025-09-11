@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalResourceApi::class, InternalResourceApi::class)
+
 package it.sagratime.app.web.server
 
 import io.ktor.server.html.respondHtml
@@ -24,6 +26,8 @@ import kotlinx.html.p
 import kotlinx.html.script
 import kotlinx.html.style
 import kotlinx.html.title
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.InternalResourceApi
 
 suspend fun RoutingContext.getHomeBootstrapDocument(locales: List<ComposeLocale>) {
     val strings =
