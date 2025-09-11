@@ -24,3 +24,9 @@ dependencies {
     commonMainApi(libs.material.kolor)
     commonMainApi(projects.core)
 }
+
+compose {
+    resources {
+        publicResClass = true
+    }
+}

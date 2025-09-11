@@ -1,20 +1,10 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    `convention-version`
-    id(libs.plugins.kotlin.jvm)
-    id(libs.plugins.kotlin.plugin.serialization)
+    id("convention-jvm")
     alias(libs.plugins.kotlin.plugin.compose)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.compose.hot.reload)
-    application
-}
-
-kotlin {
-    jvmToolchain {
-        vendor = JvmVendorSpec.JETBRAINS
-        languageVersion = JavaLanguageVersion.of(21)
-    }
 }
 
 application {

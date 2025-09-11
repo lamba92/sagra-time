@@ -30,7 +30,7 @@ import it.sagratime.core.datetime.toZonedDateTime
 import it.sagratime.server.ADMIN_PASSWORD
 import it.sagratime.server.ADMIN_USERNAME
 import it.sagratime.server.DB_PATH
-import it.sagratime.server.SagraTime
+import it.sagratime.server.SagraTimeApi
 import it.sagratime.server.getDocumentStoreSagraProvider
 import kotlinx.datetime.TimeZone
 import org.junit.jupiter.api.BeforeEach
@@ -44,53 +44,57 @@ import kotlin.time.Duration.Companion.days
 import kotlin.time.ExperimentalTime
 
 class ServerTests {
-
     @BeforeEach
     fun clearDb() {
         Path(DB_PATH).deleteRecursively()
     }
 
     @Test
-    fun insertAndRetrieve() = testSagraApplication {
-        val postResult = client.post("api/v1/sagra/add") {
-            header(HttpHeaders.ContentType, ContentType.Application.Json)
-            setBody(TestEvent)
+    fun insertAndRetrieve() =
+        testSagraApplication {
+            val postResult =
+                client.post("api/v1/sagra/add") {
+                    header(HttpHeaders.ContentType, ContentType.Application.Json)
+                    setBody(TestEvent)
+                }
+            if (postResult.status != HttpStatusCode.OK) error("Failed to insert test sagra")
+            val result = client.get("api/v1/sagra/search").body<Page<Event>>()
+            assertEquals(listOf(TestEvent), result.results)
         }
-        if (postResult.status != HttpStatusCode.OK) error("Failed to insert test sagra")
-        val result = client.get("api/v1/sagra/search").body<Page<Event>>()
-        assertEquals(listOf(TestEvent), result.results)
-    }
 
     @Test
-    fun canOnlyAddSagraWithAdminAuth() = testSagraApplication(withAuth = false) {
-        val postResult = client.post("api/v1/sagra/add") {
-            header(HttpHeaders.ContentType, ContentType.Application.Json)
-            setBody(TestEvent)
+    fun canOnlyAddSagraWithAdminAuth() =
+        testSagraApplication(withAuth = false) {
+            val postResult =
+                client.post("api/v1/sagra/add") {
+                    header(HttpHeaders.ContentType, ContentType.Application.Json)
+                    setBody(TestEvent)
+                }
+            assertEquals(HttpStatusCode.Unauthorized, postResult.status)
         }
-        assertEquals(HttpStatusCode.Unauthorized, postResult.status)
-    }
 }
 
 fun testSagraApplication(
     withAuth: Boolean = true,
-    block: suspend ApplicationTestBuilder.() -> Unit
+    block: suspend ApplicationTestBuilder.() -> Unit,
 ) = testApplication {
-    client = createClient {
-        install(ContentNegotiation) {
-            json()
-        }
-        if (withAuth) {
-            install(Auth) {
-                basic {
-                    credentials {
-                        BasicAuthCredentials(ADMIN_USERNAME, ADMIN_PASSWORD)
+    client =
+        createClient {
+            install(ContentNegotiation) {
+                json()
+            }
+            if (withAuth) {
+                install(Auth) {
+                    basic {
+                        credentials {
+                            BasicAuthCredentials(ADMIN_USERNAME, ADMIN_PASSWORD)
+                        }
                     }
                 }
             }
         }
-    }
     LevelDBStore.open(DB_PATH).use { store ->
-        application { SagraTime(getDocumentStoreSagraProvider(store)) }
+        application { SagraTimeApi(getDocumentStoreSagraProvider(store)) }
         block()
     }
 }
@@ -105,9 +109,10 @@ val TestEvent =
         description = "test",
         type = EventType.Sagra,
         sourceLinks = listOf("a", "b"),
-        location = Location(
-            geoCoordinates = GeoCoordinates(1.0, 2.0),
-            cityName = "test",
-            region = ItalianRegion.Abruzzo
-        ),
+        location =
+            Location(
+                geoCoordinates = GeoCoordinates(1.0, 2.0),
+                cityName = "test",
+                region = ItalianRegion.Abruzzo,
+            ),
     )

@@ -1,6 +1,4 @@
-@file:Suppress("UnstableApiUsage", "OPT_IN_USAGE")
-
-import com.android.build.api.dsl.androidLibrary
+@file:Suppress("OPT_IN_USAGE")
 
 plugins {
     `maven-publish`
@@ -20,7 +18,7 @@ publishing {
 }
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(21)
     androidLibrary {
         experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
         namespace = group.toString()

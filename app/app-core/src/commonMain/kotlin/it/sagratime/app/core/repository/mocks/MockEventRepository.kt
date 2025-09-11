@@ -3,11 +3,11 @@
 package it.sagratime.app.core.repository.mocks
 
 import it.sagratime.app.core.repository.EventRepository
-import it.sagratime.app.core.repository.SagraStatistics
 import it.sagratime.core.data.Event
 import it.sagratime.core.data.EventId
 import it.sagratime.core.data.EventSearchQuery
 import it.sagratime.core.data.EventType
+import it.sagratime.core.data.EventsStatistics
 import it.sagratime.core.data.GeoCoordinates
 import it.sagratime.core.data.ItalianRegion
 import it.sagratime.core.data.Locale
@@ -24,9 +24,9 @@ import kotlin.time.ExperimentalTime
 object MockEventRepository : EventRepository {
     private val random = Random(0)
 
-    override suspend fun getEventStatistics(): SagraStatistics {
+    override suspend fun getEventStatistics(): EventsStatistics {
         delay(Random.Default.nextInt(4, 10).seconds)
-        return SagraStatistics(
+        return EventsStatistics(
             activeEvents = 10,
             eventsThisYear = 100,
         )

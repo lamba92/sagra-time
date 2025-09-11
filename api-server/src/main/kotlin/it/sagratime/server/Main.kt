@@ -14,9 +14,9 @@ suspend fun main() {
     LevelDBStore.open(DB_PATH).use { store ->
         embeddedServer(
             factory = CIO,
-            port = 8080
+            port = 8080,
         ) {
-            SagraTime(getDocumentStoreSagraProvider(store))
+            SagraTimeApi(getDocumentStoreSagraProvider(store))
         }.start(true)
     }
 }

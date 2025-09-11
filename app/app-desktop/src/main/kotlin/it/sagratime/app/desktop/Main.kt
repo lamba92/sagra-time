@@ -12,18 +12,18 @@ import it.sagratime.app.core.components.LocalIsSystemDarkProvider
 import it.sagratime.app.core.components.SagraTimeApp
 import it.sagratime.app.core.di.DIModules
 
-
 fun main() {
     singleWindowApplication(
-        state = WindowState(
-            size = DpSize(450.dp, 1000.dp)
-        ),
-        resizable = true
+        state =
+            WindowState(
+                size = DpSize(450.dp, 1000.dp),
+            ),
+        resizable = true,
     ) {
         CompositionLocalProvider(
             LocalCoilLogger provides CoilDebugLogger,
-            LocalCoilComponentsProviders provides debugComponentProviders,
-            LocalIsSystemDarkProvider provides OsDetectorIsSystemDarkProvider()
+            LocalCoilComponentsProviders provides DebugComponentProviders,
+            LocalIsSystemDarkProvider provides OsDetectorIsSystemDarkProvider(),
         ) {
             SagraTimeApp(
                 diModules = DEFAULT_MODULES + DIModules.mocks,

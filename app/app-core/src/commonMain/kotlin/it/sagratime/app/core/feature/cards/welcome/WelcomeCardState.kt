@@ -1,6 +1,6 @@
 package it.sagratime.app.core.feature.cards.welcome
 
-import it.sagratime.app.core.repository.SagraStatistics
+import it.sagratime.core.data.EventsStatistics
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
 
@@ -12,6 +12,6 @@ sealed interface WelcomeCardState {
     @Serializable
     @JvmInline
     value class Ready(
-        val statistics: SagraStatistics,
+        val statistics: EventsStatistics,
     ) : WelcomeCardState
 }

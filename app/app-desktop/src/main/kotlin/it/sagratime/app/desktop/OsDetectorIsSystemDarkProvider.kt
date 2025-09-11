@@ -8,7 +8,9 @@ import com.jthemedetecor.OsThemeDetector
 import it.sagratime.app.core.components.IsSystemDarkProvider
 import java.util.function.Consumer
 
-class OsDetectorIsSystemDarkProvider : IsSystemDarkProvider, AutoCloseable {
+class OsDetectorIsSystemDarkProvider :
+    IsSystemDarkProvider,
+    AutoCloseable {
     private var state by mutableStateOf(OsThemeDetector.getDetector().isDark)
     private val listener = Consumer<Boolean> { state = it }
 

@@ -3,7 +3,6 @@ package it.sagratime.app.desktop
 import coil3.util.Logger
 
 object CoilDebugLogger : Logger {
-
     override var minLevel = Logger.Level.Debug
 
     override fun log(

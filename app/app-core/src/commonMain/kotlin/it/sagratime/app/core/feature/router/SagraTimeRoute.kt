@@ -7,6 +7,18 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface SagraTimeRoute {
+    companion object {
+        fun fromUrl(url: String): SagraTimeRoute? {
+            val segments = url.split("/").drop(1)
+            return when (segments.firstOrNull()) {
+                "home", "" -> Home
+                "sagra" -> Sagra(EventId(segments[1]))
+                "region" -> Region(ItalianRegion.valueOf(segments[1]))
+                else -> null
+            }
+        }
+    }
+
     @Serializable
     @SerialName("home")
     object Home : SagraTimeRoute

@@ -13,13 +13,11 @@ import okio.source
 import java.net.URI
 import java.net.URLConnection
 
-
 object JarUriFetcherFactory : Fetcher.Factory<Uri> {
-
     override fun create(
         data: Uri,
         options: Options,
-        imageLoader: ImageLoader
+        imageLoader: ImageLoader,
     ): Fetcher? {
         // Accept real jar: URIs or "file:" that point inside a JAR (have "!/").
         val s = data.toString()
@@ -36,7 +34,7 @@ object JarUriFetcherFactory : Fetcher.Factory<Uri> {
             SourceFetchResult(
                 source = imageSource,
                 mimeType = mime,
-                dataSource = DataSource.DISK // local artifact, not NETWORK/MEMORY
+                dataSource = DataSource.DISK, // local artifact, not NETWORK/MEMORY
             )
         }
     }

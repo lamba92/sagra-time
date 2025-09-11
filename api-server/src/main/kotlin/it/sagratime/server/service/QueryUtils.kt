@@ -15,7 +15,6 @@ val EarthRadius
     get() = 6371.0 // Earth radius in km
 
 fun GeoCoordinates.haversineDistance(point: GeoCoordinates): Length {
-
     val phi1 = Math.toRadians(latitude)
     val phi2 = Math.toRadians(point.latitude)
     val dPhi = Math.toRadians(point.latitude - latitude)
@@ -28,11 +27,14 @@ fun GeoCoordinates.haversineDistance(point: GeoCoordinates): Length {
 }
 
 fun Event.matchesQuery(query: String): Boolean =
-    description?.contains(query, true) == true
-            || food.any { it.contains(query, true) }
-            || name.contains(query, true)
-            || location.region.name.contains(query, true)
-            || location.cityName.contains(query, true)
+    description?.contains(query, true) == true ||
+        food.any { it.contains(query, true) } ||
+        name.contains(query, true) ||
+        location.region.name.contains(query, true) ||
+        location.cityName.contains(query, true)
 
 @Serializable
-data class LocationQuery(val from: GeoCoordinates, val radius: Length)
+data class LocationQuery(
+    val from: GeoCoordinates,
+    val radius: Length,
+)

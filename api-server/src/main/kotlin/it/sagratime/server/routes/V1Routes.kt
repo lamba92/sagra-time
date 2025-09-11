@@ -28,8 +28,9 @@ fun Route.v1Routes(eventProvider: EventProvider) {
 
             authenticate {
                 post("add") {
-                    if (call.principal<Principal>() != Principal.Admin)
+                    if (call.principal<Principal>() != Principal.Admin) {
                         return@post call.respond(HttpStatusCode.Unauthorized)
+                    }
                     val event = call.receive<Event>()
                     eventProvider.addSagra(event)
                     call.respond(HttpStatusCode.OK)

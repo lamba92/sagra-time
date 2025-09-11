@@ -1,14 +1,7 @@
 plugins {
-    `convention-version`
+    id("convention-jvm")
     application
-    id(libs.plugins.kotlin.jvm)
     `convention-docker`
-}
-
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xwhen-guards")
-    }
 }
 
 application {
@@ -43,13 +36,19 @@ tasks {
         useJUnitPlatform()
         environment(
             "DB_PATH",
-            project.layout.buildDirectory.dir("test-db").get().asFile.absolutePath
+            project.layout.buildDirectory
+                .dir("test-db")
+                .get()
+                .asFile.absolutePath,
         )
     }
     named<JavaExec>("run") {
         environment(
             "DB_PATH",
-            project.layout.buildDirectory.dir("db").get().asFile.absolutePath
+            project.layout.buildDirectory
+                .dir("db")
+                .get()
+                .asFile.absolutePath,
         )
     }
 }

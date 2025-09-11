@@ -7,16 +7,20 @@ import io.ktor.server.application.install
 import io.ktor.server.auth.Authentication
 import io.ktor.server.auth.basic
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.routing.routing
 import it.sagratime.server.routes.apiRoutes
 import it.sagratime.server.service.EventProvider
 
-fun Application.SagraTime(eventProvider: EventProvider) {
+@Suppress("FunctionName")
+fun Application.SagraTimeApi(eventProvider: EventProvider) {
     install(ContentNegotiation) {
         json()
         xml()
     }
-
+    install(CORS) {
+        anyHost()
+    }
     install(Authentication) {
         basic {
             validate {

@@ -10,11 +10,9 @@ import kotlinx.coroutines.flow.toList
 import kotlin.math.max
 
 class KotlinDocumentStoreEventProvider(
-    private val collection: ObjectCollection<Event>
+    private val collection: ObjectCollection<Event>,
 ) : EventProvider {
-    override suspend fun search(
-        query: EventSearchQuery
-    ): Page<Event> {
+    override suspend fun search(query: EventSearchQuery): Page<Event> {
         val results =
             collection
                 .iterateAll()
@@ -23,8 +21,7 @@ class KotlinDocumentStoreEventProvider(
                 .filter { sagra ->
                     query.location?.let { it.from.haversineDistance(sagra.location.geoCoordinates) <= it.radius }
                         ?: true
-                }
-                .toList()
+                }.toList()
 
         val offset = query.page * query.size
 
@@ -32,12 +29,11 @@ class KotlinDocumentStoreEventProvider(
             currentPage = query.page,
             totalPages = max((results.size - 1) / query.size + 1, 0),
             results = results.subList(offset, minOf(offset + query.size, results.size)),
-            itemsPerPage = query.size
+            itemsPerPage = query.size,
         )
     }
 
     override suspend fun addSagra(event: Event) {
         collection.insert(event)
     }
-
 }

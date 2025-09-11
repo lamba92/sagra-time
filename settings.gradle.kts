@@ -42,12 +42,20 @@ develocity {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
-    ":crawler",
     ":api-server",
-    ":core",
     ":app",
+    ":app:app-android",
     ":app:app-core",
     ":app:app-desktop",
-    ":app:app-android",
     ":app:app-web-compose",
+    ":app:app-web-server",
+    ":core",
+    ":crawler",
 )
+
+includeBuild("compose-multiplatform/components") {
+    dependencySubstitution {
+        substitute(module("org.jetbrains.compose.components:components-resources"))
+            .using(project(":resources:library"))
+    }
+}
