@@ -1,0 +1,190 @@
+package it.sagratime.app.core.feature.cards.whatisasagra.components
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FoodBank
+import androidx.compose.material.icons.filled.Map
+import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.filled.People
+import androidx.compose.material.icons.outlined.QuestionMark
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import it.sagratime.app.core.components.RoundedIcon
+import it.sagratime.app.core.components.SagraTimeCard
+import it.sagratime.app.core.components.SagraTimeTheme
+import it.sagratime.app.core.components.ScreenType
+import it.sagratime.app.core.components.chipColorsFrom
+import it.sagratime.app_core.generated.resources.Res
+import it.sagratime.app_core.generated.resources.what_is_a_sagra_community_snippet_description
+import it.sagratime.app_core.generated.resources.what_is_a_sagra_community_snippet_title
+import it.sagratime.app_core.generated.resources.what_is_a_sagra_culture_snippet_description
+import it.sagratime.app_core.generated.resources.what_is_a_sagra_culture_snippet_title
+import it.sagratime.app_core.generated.resources.what_is_a_sagra_land_identity_snippet_description
+import it.sagratime.app_core.generated.resources.what_is_a_sagra_land_identity_snippet_title
+import it.sagratime.app_core.generated.resources.what_is_a_sagra_subtitle
+import it.sagratime.app_core.generated.resources.what_is_a_sagra_title
+import it.sagratime.app_core.generated.resources.what_is_a_sagra_tradition_snippet_description
+import it.sagratime.app_core.generated.resources.what_is_a_sagra_tradition_snippet_title
+import org.jetbrains.compose.resources.stringResource
+
+@Composable
+fun WhatIsASagraCard(modifier: Modifier = Modifier) {
+    SagraTimeCard(modifier = modifier) {
+        Column(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(SagraTimeTheme.metrics.cards.innerPaddings),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            RoundedIcon(
+                size = 60.dp,
+            ) {
+                Icon(
+                    modifier = Modifier.size(28.dp),
+                    imageVector = Icons.Outlined.QuestionMark,
+                    contentDescription = null,
+                    tint = Color.White,
+                )
+            }
+            Text(
+                text = stringResource(Res.string.what_is_a_sagra_title),
+                style = SagraTimeTheme.typography.titleLarge,
+            )
+            Text(
+                text = stringResource(Res.string.what_is_a_sagra_subtitle),
+                style = SagraTimeTheme.typography.bodyLarge,
+            )
+            when (SagraTimeTheme.metrics.screenType) {
+                ScreenType.SMALL ->
+                    Column(
+                        modifier =
+                            Modifier.padding(SagraTimeTheme.metrics.cards.innerPaddings),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalAlignment = Alignment.Start,
+                    ) {
+                        InfoSnippetWhatIsASagraTradition()
+                        ShowWhatIsASagraCommunitySnippet()
+                        SagraLandIdentitySnippet()
+                        SagraCultureSnippet()
+                    }
+
+                ScreenType.MEDIUM ->
+                    Column(
+                        modifier =
+                            Modifier.padding(SagraTimeTheme.metrics.cards.innerPaddings),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalAlignment = Alignment.Start,
+                    ) {
+                        Row {
+                            InfoSnippetWhatIsASagraTradition(modifier = Modifier.weight(1f))
+                            ShowWhatIsASagraCommunitySnippet(modifier = Modifier.weight(1f))
+                        }
+                        Row {
+                            SagraLandIdentitySnippet(modifier = Modifier.weight(1f))
+                            SagraCultureSnippet(modifier = Modifier.weight(1f))
+                        }
+                    }
+
+                ScreenType.LARGE ->
+                    Row {
+                        InfoSnippetWhatIsASagraTradition(modifier = Modifier.weight(1f))
+                        ShowWhatIsASagraCommunitySnippet(modifier = Modifier.weight(1f))
+                        SagraLandIdentitySnippet(modifier = Modifier.weight(1f))
+                        SagraCultureSnippet(modifier = Modifier.weight(1f))
+                    }
+            }
+        }
+    }
+}
+
+@Composable
+fun SagraCultureSnippet(modifier: Modifier = Modifier) {
+    InfoSnippet(
+        modifier = modifier,
+        title = stringResource(Res.string.what_is_a_sagra_culture_snippet_title),
+        description = stringResource(Res.string.what_is_a_sagra_culture_snippet_description),
+        icon = {
+            val (backgroundColor, contentColor) =
+                chipColorsFrom(Color.Magenta)
+            RoundedIcon(backgroundColor) {
+                Icon(
+                    imageVector = Icons.Filled.MusicNote,
+                    contentDescription = null,
+                    tint = contentColor,
+                )
+            }
+        },
+    )
+}
+
+@Composable
+fun SagraLandIdentitySnippet(modifier: Modifier = Modifier) {
+    InfoSnippet(
+        modifier = modifier,
+        title = stringResource(Res.string.what_is_a_sagra_land_identity_snippet_title),
+        description = stringResource(Res.string.what_is_a_sagra_land_identity_snippet_description),
+        icon = {
+            val (backgroundColor, contentColor) =
+                chipColorsFrom(Color.Green)
+            RoundedIcon(backgroundColor) {
+                Icon(
+                    imageVector = Icons.Filled.Map,
+                    contentDescription = null,
+                    tint = contentColor,
+                )
+            }
+        },
+    )
+}
+
+@Composable
+fun ShowWhatIsASagraCommunitySnippet(modifier: Modifier = Modifier) {
+    InfoSnippet(
+        modifier = modifier,
+        title = stringResource(Res.string.what_is_a_sagra_community_snippet_title),
+        description = stringResource(Res.string.what_is_a_sagra_community_snippet_description),
+        icon = {
+            val (backgroundColor, contentColor) =
+                chipColorsFrom(Color.Blue)
+            RoundedIcon(backgroundColor) {
+                Icon(
+                    imageVector = Icons.Filled.People,
+                    contentDescription = null,
+                    tint = contentColor,
+                )
+            }
+        },
+    )
+}
+
+@Composable
+fun InfoSnippetWhatIsASagraTradition(modifier: Modifier = Modifier) {
+    InfoSnippet(
+        modifier = modifier,
+        title = stringResource(Res.string.what_is_a_sagra_tradition_snippet_title),
+        description = stringResource(Res.string.what_is_a_sagra_tradition_snippet_description),
+        icon = {
+            val (backgroundColor, contentColor) =
+                chipColorsFrom(Color.Red)
+            RoundedIcon(backgroundColor) {
+                Icon(
+                    imageVector = Icons.Filled.FoodBank,
+                    contentDescription = null,
+                    tint = contentColor,
+                )
+            }
+        },
+    )
+}

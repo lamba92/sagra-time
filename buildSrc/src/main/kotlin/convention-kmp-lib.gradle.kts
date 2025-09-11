@@ -1,14 +1,12 @@
-@file:Suppress("UnstableApiUsage")
-
-import com.android.build.api.dsl.androidLibrary
+@file:Suppress("OPT_IN_USAGE")
 
 plugins {
     `maven-publish`
-    id("com.android.kotlin.multiplatform.library")
+    alias(libs.plugins.android.multiplatform.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.plugin.serialization)
     id("convention-ktlint")
     id("convention-version")
-    kotlin("multiplatform")
-    kotlin("plugin.serialization")
 }
 
 publishing {
@@ -20,18 +18,22 @@ publishing {
 }
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(21)
     androidLibrary {
         experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
         namespace = group.toString()
         compileSdk = 36
         minSdk = 24
     }
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
     jvm()
     iosArm64()
     iosSimulatorArm64()
     compilerOptions {
         freeCompilerArgs.add("-Xcontext-sensitive-resolution")
+        freeCompilerArgs.add("-Xwhen-guards")
     }
 }
-

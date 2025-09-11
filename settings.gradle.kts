@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-rootProject.name = "sagra-bot"
+rootProject.name = "sagra-time"
 
 pluginManagement {
     repositories {
@@ -12,13 +12,14 @@ pluginManagement {
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-    id("com.gradle.develocity") version "4.1"
+    id("com.gradle.develocity") version "4.1.1"
 }
 
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
         google()
+        maven("https://jitpack.io")
     }
     rulesMode = RulesMode.PREFER_SETTINGS
     versionCatalogs {
@@ -41,12 +42,20 @@ develocity {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
-    ":crawler",
-    ":server",
-    ":core",
+    ":api-server",
     ":app",
+    ":app:app-android",
     ":app:app-core",
     ":app:app-desktop",
-    ":app:app-android",
-    ":app:app-web",
+    ":app:app-web-compose",
+    ":app:app-web-server",
+    ":core",
+    ":crawler",
 )
+
+includeBuild("compose-multiplatform/components") {
+    dependencySubstitution {
+        substitute(module("org.jetbrains.compose.components:components-resources"))
+            .using(project(":resources:library"))
+    }
+}

@@ -6,3 +6,13 @@ out/
 .venv/
 .kotlin/
 sagra-db/
+node_modules/
+.vscode/
+dist/
+tmp/
+npm-debug.log
+yarn-error.log
+.DS_Store
+Thumbs.db
+.angular
+kotlin-js-store/
