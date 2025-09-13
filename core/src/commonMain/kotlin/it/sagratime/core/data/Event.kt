@@ -31,11 +31,7 @@ data class Event(
     val location: Location,
 )
 
-@Serializable
-data class GeoCoordinates(
-    val latitude: Double,
-    val longitude: Double,
-)
+
 
 @Serializable
 data class Location(
