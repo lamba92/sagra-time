@@ -1,5 +1,5 @@
 [versions]
-activity-compose = "1.10.1"
+activity-compose = "1.11.0"
 android-gradle-plugin = "8.13.0"
 android-test-junit = "1.3.0"
 androidx-navigation = "2.9.0-rc02"
@@ -7,6 +7,7 @@ androidx-test-core = "1.7.0"
 androidx-test-runner = "1.7.0"
 coil = "3.3.0"
 compose-bom = "2025.09.00"
+compose-hot-reload = "1.0.0-beta06"
 compose-lifecycle-viewmodel = "2.9.3"
 compose-shimmer = "1.3.3"
 dokka = "2.0.0"
@@ -14,26 +15,26 @@ h2 = "2.3.232"
 jetbrains-compose = "1.9.0-beta03"
 jetbrains-compose-material-icons = "1.7.3"
 junit = "5.13.4"
+jvm-system-theme-detector = "3.9.1"
 jwt-kt = "1.2.1"
-koin = "4.1.0"
-kotlin = "2.2.10"
+koin = "4.1.1"
+kotlin = "2.2.20"
 kotlin-leveldb = "1.0.2"
+kotlinx-browser = "0.5.0"
 kotlinx-coroutines = "1.10.2"
-kotlinx-datetime = "0.7.1-0.6.x-compat"
+kotlinx-datetime = "0.7.1"
 kotlinx-html = "0.12.0"
 kotlinx-io = "0.8.0"
 kotlinx-serialization-json = "1.9.0"
 ktlint-gradle = "13.1.0"
-ktor = "3.2.3"
+ktor = "3.3.0"
 lamba-docker = "1.1.0"
 logback = "1.5.18"
 materialKolor = "3.0.1"
-model-contex-protocol = "0.6.0"
+model-contex-protocol = "0.7.0"
 nexus-publish-plugin = "2.0.0"
 node-gradle = "7.1.0"
 xmlutil = "0.91.2"
-compose-hot-reload = "1.0.0-beta05"
-jvm-system-theme-detector = "3.9.1"
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
@@ -93,6 +94,7 @@ kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", v
 kotlin-leveldb = { module = "com.github.lamba92:kotlin-leveldb", version.ref = "kotlin-leveldb" }
 kotlin-serialization-plugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "kotlinx-browser" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
@@ -139,10 +141,11 @@ compose-desktop = [
     "compose-desktop-windows-x64",
 ]
 ktor-client = [
+    "ktor-client-auth",
+    "ktor-client-cio",
     "ktor-client-content-negotiation",
     "ktor-client-logging",
-    "ktor-serialization-kotlinx-json",
-    "ktor-client-auth"
+    "ktor-serialization-kotlinx-json"
 ]
 ktor-server = [
     "koin-ktor",
