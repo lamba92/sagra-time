@@ -8,10 +8,11 @@ import it.sagratime.app.core.combine
 import it.sagratime.app.core.locale.LocaleService
 import it.sagratime.app.core.repository.LocationService
 import it.sagratime.app.core.repository.LocationServiceStatus
-import it.sagratime.app.core.repository.V1EventRepository
 import it.sagratime.core.data.DateRange
 import it.sagratime.core.data.EventSearchQuery
 import it.sagratime.core.data.LocationQuery
+import it.sagratime.core.data.SearchCompletionQuery
+import it.sagratime.core.repository.V1EventRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -56,8 +57,14 @@ class SearchCardViewModel(
         searchAutocompleteQueue
             .consumeAsFlow()
             .combine(localeService.currentLocale)
-            .mapLatest { (query, locale) -> eventRepository.searchCompletionQuery(query, locale) }
-            .onEach { tips ->
+            .mapLatest { (query, locale) ->
+                eventRepository.searchCompletion(
+                    SearchCompletionQuery(
+                        query = query,
+                        locale = locale,
+                    ),
+                )
+            }.onEach { tips ->
                 _state.update {
                     it.copy(
                         isQueryTipsLoading = false,

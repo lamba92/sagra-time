@@ -2,17 +2,10 @@
 
 package it.sagratime.core.data
 
-import io.ktor.http.Parameters
-import io.ktor.http.ParametersBuilder
-import io.ktor.util.appendAll
-import io.ktor.util.toMap
 import it.sagratime.core.datetime.ZonedDate
 import it.sagratime.core.units.Length
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.properties.Properties
-import kotlinx.serialization.properties.decodeFromStringMap
-import kotlinx.serialization.properties.encodeToStringMap
 
 @Serializable
 data class EventSearchQuery(
@@ -37,16 +30,8 @@ data class LocationQuery(
     val radius: Length,
 )
 
-fun EventSearchQuery.toQueryParams(properties: Properties = Properties) =
-    buildQueryParams {
-        appendAll(properties.encodeToStringMap(this@toQueryParams))
-    }
-
-fun Parameters.toEventSearchQuery(properties: Properties = Properties): EventSearchQuery =
-    properties
-        .decodeFromStringMap<EventSearchQuery>(
-            toMap()
-                .mapValues { it.value.joinToString(",") },
-        )
-
-fun buildQueryParams(block: ParametersBuilder.() -> Unit) = ParametersBuilder().apply(block).build()
+@Serializable
+data class SearchCompletionQuery(
+    val query: String,
+    val locale: Locale,
+)

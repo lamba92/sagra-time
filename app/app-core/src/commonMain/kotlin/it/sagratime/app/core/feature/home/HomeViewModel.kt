@@ -5,8 +5,8 @@ package it.sagratime.app.core.feature.home
 import androidx.lifecycle.viewModelScope
 import it.sagratime.app.core.MVIViewModel
 import it.sagratime.app.core.feature.cards.search.SearchCardEffect
-import it.sagratime.app.core.repository.V1EventRepository
 import it.sagratime.core.data.EventSearchQuery
+import it.sagratime.core.repository.V1EventRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +30,7 @@ class HomeViewModel(
         searchQueue
             .consumeAsFlow()
             .mapLatest { eventRepository.search(it) }
-            .onEach { _state.value = HomeState.Searching.Success(it) }
+            .onEach { _state.value = HomeState.Searching.Success(it.results) }
             .launchIn(viewModelScope)
     }
 

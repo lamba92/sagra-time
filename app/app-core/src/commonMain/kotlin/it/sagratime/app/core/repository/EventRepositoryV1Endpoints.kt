@@ -7,17 +7,18 @@ import io.ktor.http.URLProtocol
 import io.ktor.http.Url
 import io.ktor.http.appendPathSegments
 import io.ktor.http.buildUrl
+import it.sagratime.core.UrlParameters
 import it.sagratime.core.data.EventSearchQuery
 import it.sagratime.core.data.Locale
-import it.sagratime.core.data.toQueryParams
+import it.sagratime.core.data.SearchCompletionQuery
+import it.sagratime.core.encodeToParameters
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.properties.Properties
 
 class EventRepositoryV1Endpoints(
     val host: String,
     val protocol: URLProtocol,
     val port: Int = protocol.defaultPort,
-    val properties: Properties = Properties.Default,
+    val urlParameters: UrlParameters = UrlParameters.Default,
 ) {
     companion object {
         val LOCALHOST
@@ -39,20 +40,16 @@ class EventRepositoryV1Endpoints(
 
     fun getPopularSearchesUrl(locale: Locale): Url =
         buildV1Url("events", "popular") {
-            append("locale", locale.toString())
+            appendAll(urlParameters.encodeToParameters(locale))
         }
 
-    fun searchCompletionQueryUrl(
-        query: String,
-        locale: Locale,
-    ): Url =
+    fun searchCompletionQueryUrl(query: SearchCompletionQuery): Url =
         buildV1Url("events", "autocomplete") {
-            append("query", query)
-            append("locale", locale.toString())
+            appendAll(urlParameters.encodeToParameters(query))
         }
 
     fun searchUrl(query: EventSearchQuery): Url =
         buildV1Url("events", "search") {
-            appendAll(query.toQueryParams(properties))
+            appendAll(urlParameters.encodeToParameters(query))
         }
 }

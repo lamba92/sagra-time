@@ -15,11 +15,13 @@ import it.sagratime.core.data.Event
 import it.sagratime.core.data.EventSearchQuery
 import it.sagratime.core.data.EventsStatistics
 import it.sagratime.core.data.Locale
+import it.sagratime.core.data.Page
+import it.sagratime.core.data.SearchCompletionQuery
 
 class HttpEventRepository(
     override val endpoints: EventRepositoryV1Endpoints,
     private val httpClient: HttpClient = defaultClient(),
-) : V1EventRepository {
+) : V1ClientEventRepository {
     companion object {
         fun defaultClient(
             httpRequestRetryConfig: (HttpRequestRetryConfig.() -> Unit)? = {
@@ -45,10 +47,8 @@ class HttpEventRepository(
 
     override suspend fun getPopularSearches(locale: Locale): List<String> = httpClient.get(endpoints.getPopularSearchesUrl(locale)).body()
 
-    override suspend fun searchCompletionQuery(
-        query: String,
-        locale: Locale,
-    ): List<String> = httpClient.get(endpoints.searchCompletionQueryUrl(query, locale)).body()
+    override suspend fun searchCompletion(query: SearchCompletionQuery): List<String> =
+        httpClient.get(endpoints.searchCompletionQueryUrl(query)).body()
 
-    override suspend fun search(query: EventSearchQuery): List<Event> = httpClient.get(endpoints.searchUrl(query)).body()
+    override suspend fun search(query: EventSearchQuery): Page<Event> = httpClient.get(endpoints.searchUrl(query)).body()
 }

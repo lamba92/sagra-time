@@ -3,7 +3,7 @@
 package it.sagratime.app.core.repository.mocks
 
 import it.sagratime.app.core.repository.EventRepositoryV1Endpoints
-import it.sagratime.app.core.repository.V1EventRepository
+import it.sagratime.app.core.repository.V1ClientEventRepository
 import it.sagratime.core.data.Event
 import it.sagratime.core.data.EventId
 import it.sagratime.core.data.EventSearchQuery
@@ -13,6 +13,8 @@ import it.sagratime.core.data.GeoCoordinates
 import it.sagratime.core.data.ItalianRegion
 import it.sagratime.core.data.Locale
 import it.sagratime.core.data.Location
+import it.sagratime.core.data.Page
+import it.sagratime.core.data.SearchCompletionQuery
 import it.sagratime.core.datetime.toZonedDateTime
 import kotlinx.coroutines.delay
 import kotlinx.datetime.TimeZone
@@ -22,7 +24,7 @@ import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 
-object MockEventRepository : V1EventRepository {
+object MockEventRepository : V1ClientEventRepository {
     private val random = Random(0)
     override val endpoints: EventRepositoryV1Endpoints
         get() = EventRepositoryV1Endpoints.LOCALHOST
@@ -45,10 +47,7 @@ object MockEventRepository : V1EventRepository {
         )
     }
 
-    override suspend fun searchCompletionQuery(
-        query: String,
-        locale: Locale,
-    ): List<String> {
+    override suspend fun searchCompletion(query: SearchCompletionQuery): List<String> {
         delay(Random.Default.nextInt(1, 2).seconds)
         return listOf(
             "Pizza fritta",
@@ -59,28 +58,34 @@ object MockEventRepository : V1EventRepository {
     }
 
     override suspend fun search(query: EventSearchQuery) =
-        List(10) {
-            val from = Clock.System.now()
-            val until = from + Random.Default.nextInt(0, 3).days
-            Event(
-                id = EventId(it.toString()),
-                imageUrl = null,
-                type = EventType.entries.random(random),
-                name = "Event $it",
-                food = List(random.nextInt(1, 5)) { "Food $it" },
-                from = from.toZonedDateTime(TimeZone.currentSystemDefault()),
-                until = until.toZonedDateTime(TimeZone.currentSystemDefault()),
-                sourceLinks = emptyList(),
-                description =
-                    "Immergiti nella cultura vinicola toscana con degustazioni guidate, " +
-                        "visite alle cantine storiche e abbinamenti con prodotti tipici del territorio " +
-                        "chiantigiano.",
-                location =
-                    Location(
-                        geoCoordinates = GeoCoordinates(0.0, 0.0),
-                        cityName = "City $it",
-                        region = ItalianRegion.entries.random(random),
-                    ),
-            )
-        }
+        Page(
+            currentPage = 0,
+            totalPages = 1,
+            itemsPerPage = 10,
+            results =
+                List(10) {
+                    val from = Clock.System.now()
+                    val until = from + Random.Default.nextInt(0, 3).days
+                    Event(
+                        id = EventId(it.toString()),
+                        imageUrl = null,
+                        type = EventType.entries.random(random),
+                        name = "Event $it",
+                        food = List(random.nextInt(1, 5)) { "Food $it" },
+                        from = from.toZonedDateTime(TimeZone.currentSystemDefault()),
+                        until = until.toZonedDateTime(TimeZone.currentSystemDefault()),
+                        sourceLinks = emptyList(),
+                        description =
+                            "Immergiti nella cultura vinicola toscana con degustazioni guidate, " +
+                                "visite alle cantine storiche e abbinamenti con prodotti tipici del territorio " +
+                                "chiantigiano.",
+                        location =
+                            Location(
+                                geoCoordinates = GeoCoordinates(0.0, 0.0),
+                                cityName = "City $it",
+                                region = ItalianRegion.entries.random(random),
+                            ),
+                    )
+                },
+        )
 }

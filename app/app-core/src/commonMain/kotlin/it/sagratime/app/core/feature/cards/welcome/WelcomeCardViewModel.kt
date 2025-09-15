@@ -2,7 +2,7 @@ package it.sagratime.app.core.feature.cards.welcome
 
 import androidx.lifecycle.viewModelScope
 import it.sagratime.app.core.MVIViewModel
-import it.sagratime.app.core.repository.V1EventRepository
+import it.sagratime.core.repository.V1EventRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

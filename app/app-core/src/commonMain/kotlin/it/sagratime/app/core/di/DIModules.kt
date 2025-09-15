@@ -6,9 +6,9 @@ import it.sagratime.app.core.feature.home.HomeViewModel
 import it.sagratime.app.core.feature.router.SagraTimeRouter
 import it.sagratime.app.core.locale.LocaleService
 import it.sagratime.app.core.repository.LocationService
-import it.sagratime.app.core.repository.V1EventRepository
 import it.sagratime.app.core.repository.mocks.MockEventRepository
 import it.sagratime.app.core.repository.mocks.MockLocationService
+import it.sagratime.core.repository.V1EventRepository
 import kotlinx.coroutines.CoroutineScope
 import org.koin.core.KoinApplication
 import org.koin.core.module.Module
