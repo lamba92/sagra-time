@@ -12,6 +12,9 @@ interface LocationService {
 
     suspend fun requestLocation()
 
+    suspend fun stopLocation()
+
+    // this should go in its own service!
     suspend fun citiesCompletionQuery(
         query: String,
         locale: Locale,
@@ -30,6 +33,9 @@ sealed interface LocationServiceStatus {
 
     @Serializable
     data object Disabled : LocationServiceStatus
+
+    @Serializable
+    data object Inactive : LocationServiceStatus
 
     @Serializable
     @JvmInline

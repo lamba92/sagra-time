@@ -11,7 +11,7 @@ data class Combine2<A, B>(
 
 @Suppress("UNCHECKED_CAST")
 @JvmName("flowCombine")
-public fun <A, B> Flow<A>.combine(flow: Flow<B>): Flow<Combine2<A, B>> =
+fun <A, B> Flow<A>.combine(flow: Flow<B>): Flow<Combine2<A, B>> =
     combineTransform(this, flow) {
         emit(
             Combine2(

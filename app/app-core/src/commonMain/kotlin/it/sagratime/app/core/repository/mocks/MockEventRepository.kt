@@ -2,7 +2,8 @@
 
 package it.sagratime.app.core.repository.mocks
 
-import it.sagratime.app.core.repository.EventRepository
+import it.sagratime.app.core.repository.EventRepositoryV1Endpoints
+import it.sagratime.app.core.repository.V1EventRepository
 import it.sagratime.core.data.Event
 import it.sagratime.core.data.EventId
 import it.sagratime.core.data.EventSearchQuery
@@ -21,8 +22,10 @@ import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 
-object MockEventRepository : EventRepository {
+object MockEventRepository : V1EventRepository {
     private val random = Random(0)
+    override val endpoints: EventRepositoryV1Endpoints
+        get() = EventRepositoryV1Endpoints.LOCALHOST
 
     override suspend fun getEventStatistics(): EventsStatistics {
         delay(Random.Default.nextInt(4, 10).seconds)

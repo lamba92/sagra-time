@@ -1,12 +1,11 @@
 package it.sagratime.core.data
 
 import kotlinx.serialization.Serializable
-import kotlin.jvm.JvmInline
 
 @Serializable
-@JvmInline
-value class Locale(
-    val value: String,
+data class Locale(
+    val languageIdentifier: String,
+    val regionIdentifier: String? = null,
 ) {
     companion object {
         val IT = Locale("it")

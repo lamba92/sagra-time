@@ -42,11 +42,11 @@ fun EventSearchQuery.toQueryParams(properties: Properties = Properties) =
         appendAll(properties.encodeToStringMap(this@toQueryParams))
     }
 
-fun Parameters.toEventSearchQuery(properties: Properties = Properties): EventSearchQuery {
-    val toMap = toMap()
-    val map = toMap.mapValues { it.value.joinToString(",") }
-    val decodeFromStringMap = properties.decodeFromStringMap<EventSearchQuery>(map)
-    return decodeFromStringMap
-}
+fun Parameters.toEventSearchQuery(properties: Properties = Properties): EventSearchQuery =
+    properties
+        .decodeFromStringMap<EventSearchQuery>(
+            toMap()
+                .mapValues { it.value.joinToString(",") },
+        )
 
 fun buildQueryParams(block: ParametersBuilder.() -> Unit) = ParametersBuilder().apply(block).build()

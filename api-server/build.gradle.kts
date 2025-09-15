@@ -11,7 +11,7 @@ application {
 docker {
     images {
         main {
-            imageName = "sagra-bot-api-server"
+            imageName = "sagra-time-api-server"
         }
     }
 }

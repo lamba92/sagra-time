@@ -34,6 +34,7 @@ kotlin {
     iosSimulatorArm64()
     compilerOptions {
         freeCompilerArgs.add("-Xcontext-sensitive-resolution")
+        freeCompilerArgs.add("-Xexpect-actual-classes")
         freeCompilerArgs.add("-Xwhen-guards")
     }
 }

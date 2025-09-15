@@ -27,6 +27,9 @@ object MockLocationService : LocationService {
             LocationServiceStatus.Active(GeoCoordinates(0.0, 0.0))
     }
 
+    override suspend fun stopLocation() {
+    }
+
     override suspend fun citiesCompletionQuery(
         query: String,
         locale: Locale,

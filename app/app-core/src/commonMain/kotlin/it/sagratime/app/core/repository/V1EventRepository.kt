@@ -5,7 +5,9 @@ import it.sagratime.core.data.EventSearchQuery
 import it.sagratime.core.data.EventsStatistics
 import it.sagratime.core.data.Locale
 
-interface EventRepository {
+interface V1EventRepository {
+    val endpoints: EventRepositoryV1Endpoints
+
     suspend fun getEventStatistics(): EventsStatistics
 
     suspend fun getPopularSearches(locale: Locale): List<String>

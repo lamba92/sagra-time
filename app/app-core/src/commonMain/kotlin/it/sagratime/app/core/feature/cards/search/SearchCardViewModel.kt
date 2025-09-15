@@ -5,10 +5,10 @@ package it.sagratime.app.core.feature.cards.search
 import androidx.lifecycle.viewModelScope
 import it.sagratime.app.core.MVIViewModel
 import it.sagratime.app.core.combine
-import it.sagratime.app.core.repository.EventRepository
-import it.sagratime.app.core.repository.LocaleService
+import it.sagratime.app.core.locale.LocaleService
 import it.sagratime.app.core.repository.LocationService
 import it.sagratime.app.core.repository.LocationServiceStatus
+import it.sagratime.app.core.repository.V1EventRepository
 import it.sagratime.core.data.DateRange
 import it.sagratime.core.data.EventSearchQuery
 import it.sagratime.core.data.LocationQuery
@@ -27,7 +27,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SearchCardViewModel(
-    private val eventRepository: EventRepository,
+    private val eventRepository: V1EventRepository,
     private val localeService: LocaleService,
     private val locationService: LocationService,
 ) : MVIViewModel<SearchCardState, SearchCardEffect, SearchCardEvent>() {
