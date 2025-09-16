@@ -53,12 +53,12 @@ class ServerTests {
     fun insertAndRetrieve() =
         testSagraApplication {
             val postResult =
-                client.post("api/v1/sagra/add") {
+                client.post("api/v1/events/add") {
                     header(HttpHeaders.ContentType, ContentType.Application.Json)
                     setBody(TestEvent)
                 }
             if (postResult.status != HttpStatusCode.OK) error("Failed to insert test sagra")
-            val result = client.get("api/v1/sagra/search").body<Page<Event>>()
+            val result = client.get("api/v1/events/search").body<Page<Event>>()
             assertEquals(listOf(TestEvent), result.results)
         }
 
@@ -66,7 +66,7 @@ class ServerTests {
     fun canOnlyAddSagraWithAdminAuth() =
         testSagraApplication(withAuth = false) {
             val postResult =
-                client.post("api/v1/sagra/add") {
+                client.post("api/v1/events/add") {
                     header(HttpHeaders.ContentType, ContentType.Application.Json)
                     setBody(TestEvent)
                 }

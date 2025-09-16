@@ -3,15 +3,16 @@
 package it.sagratime.core.test
 
 import io.ktor.http.formUrlEncode
+import it.sagratime.core.UrlParameters
 import it.sagratime.core.data.DateRange
 import it.sagratime.core.data.EventSearchQuery
 import it.sagratime.core.data.EventType
 import it.sagratime.core.data.GeoCoordinates
 import it.sagratime.core.data.Locale
 import it.sagratime.core.data.LocationQuery
-import it.sagratime.core.data.toEventSearchQuery
-import it.sagratime.core.data.toQueryParams
 import it.sagratime.core.datetime.ZonedDate
+import it.sagratime.core.decodeFromParameters
+import it.sagratime.core.encodeToParameters
 import it.sagratime.core.units.kilometers
 import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
@@ -55,9 +56,9 @@ class ParametersSerializationTest {
 
     @Test
     fun encodingDecoding() {
-        val encoded = TEST_OBJECT.toQueryParams()
+        val encoded = UrlParameters.encodeToParameters(TEST_OBJECT)
         println(encoded.formUrlEncode())
-        val decoded = encoded.toEventSearchQuery()
+        val decoded = UrlParameters.decodeFromParameters<EventSearchQuery>(encoded)
         assertEquals(TEST_OBJECT, decoded)
     }
 }

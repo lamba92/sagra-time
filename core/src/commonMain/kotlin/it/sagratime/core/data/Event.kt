@@ -1,6 +1,7 @@
 package it.sagratime.core.data
 
 import it.sagratime.core.datetime.ZonedDateTime
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
 
@@ -33,7 +34,9 @@ data class Event(
 
 @Serializable
 data class GeoCoordinates(
+    @SerialName("lat")
     val latitude: Double,
+    @SerialName("lon")
     val longitude: Double,
 )
 

@@ -13,7 +13,6 @@ import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.modules.EmptySerializersModule
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.properties.Properties
-import kotlinx.serialization.properties.decodeFromStringMap
 import kotlinx.serialization.serializer
 
 sealed class UrlParameters(
@@ -31,12 +30,7 @@ sealed class UrlParameters(
     ): T =
         properties.decodeFromStringMap(
             deserializer = deserializer,
-            map =
-                properties.decodeFromStringMap(
-                    parameters
-                        .toMap()
-                        .mapValues { it.value.joinToString(",") },
-                ),
+            map = parameters.toMap().mapValues { it.value.joinToString(",") },
         )
 
     fun <T> encodeToParameters(
@@ -44,7 +38,8 @@ sealed class UrlParameters(
         value: T,
     ): Parameters =
         buildQueryParams {
-            appendAll(properties.encodeToStringMap(serializer, value))
+            val properties = properties.encodeToStringMap(serializer, value)
+            appendAll(properties)
         }
 }
 

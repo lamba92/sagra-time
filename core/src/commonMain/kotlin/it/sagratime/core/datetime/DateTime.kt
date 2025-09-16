@@ -9,6 +9,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -37,7 +38,9 @@ fun Instant.toZonedDateTime(timeZone: TimeZone) = ZonedDateTime(toLocalDateTime(
 
 @Serializable
 data class ZonedDate(
+    @SerialName("d")
     val date: LocalDate,
+    @SerialName("z")
     val timeZone: TimeZone,
 ) : Comparable<ZonedDate> {
     override fun compareTo(other: ZonedDate): Int {
